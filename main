@@ -113,3 +113,76 @@ sub 2 ex 4 -matrice de tip:
     }
 
 */
+
+//var 12
+int pDoi(int n)
+{
+    int e = 0;
+    int d = 2;
+    while(n != 1)
+    {
+        while(n % d == 0)
+        {
+            e++;
+            n = n / d;
+        }
+
+    }
+}
+
+bool ePatrat(int numar)
+{
+    if((int)sqrt(numar) == sqrt(numar))
+        return true;
+    return false;
+}
+
+void patrate(int x, int y)
+{
+    int s = 0;
+    int k = 0;
+    int ok = 0;
+    for(int i = x ; i <= y; i++)
+    {
+        if(ePatrat(i))
+            k++;
+    }
+    for(int i = x ; i <= y; i++)
+    {
+        if(ok == k)
+            if(ePatrat(i))
+                {
+                    s = s +i;
+                    cout << i;
+                }
+        else
+        {
+            if(ePatrat(i))
+                {
+                    s = s +i;
+                    cout << i <<"+";
+                }
+        }
+    }
+    cout << "=" << s;
+    cout << k;
+}
+
+void suma(int n , int &s)
+{
+    s = 0;
+    int v[10] = {0};
+    while(n > 0)
+    {
+        int uc = n % 10;
+        for(int i = 1; i < 10 ; i= i + 2)
+        {
+            if(i == uc)
+                v[i]++;
+        }
+        n = n / 10;
+    }
+    for(int i = 1; i < 10 ; i = i + 2)
+        if(v[i] > 0)
+            s = s + i;
+}
