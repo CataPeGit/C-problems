@@ -1,0 +1,115 @@
+//#include <bits/stdc++.h>
+#include <iostream>
+#include <cmath>
+#include <fstream>
+using namespace std;
+
+
+int main()
+{
+    int i , j , n;
+    cin >> n;
+    int a[101][101] = {0};
+    for(i = 1; i <= n; i++)
+        for(j = 1; j <= n; j++)
+            if(a[i][j] == 0)
+            {
+                a[i][j] = i;
+                a[j][i] = i;
+            }
+    for(i = 1; i <= n; i++)
+    {
+        for(j = 1; j <= n; j++)
+            cout << a[i][j];
+        cout << endl;
+    }
+
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+/*
+bool numarPrim(n)
+{
+    if(n < 2)
+        return false;
+    if(n == 2)
+        return true;
+    for(int i = 2; i <= n/2 ; i++)
+        if(n % i == 1)
+            return false;
+    return true;
+}
+*/
+
+// subiect tutoriale pe net : Cum iei cat mai multe puncte la Bacalaureatul de Informatica
+/*
+Sub I ex pseudocod:
+    unsigned int n, a, b, c, nr, i;
+    cin >> n >> a;
+    nr = 0;
+    i = 1;
+    while(i <= n)
+    {
+        cin >> b;
+        c = 0;
+        while(b % 2 == 0)
+        {
+            b = b / 2;
+            c = c + 1;
+        }
+        if(c == a)
+            nr = nr + 1;
+        i = i + 1;
+    }
+    cout << nr;
+    return 0;
+
+
+Sub 2 ex 3:
+    struct mic{
+        int nr , mic;
+    }d;
+
+    if(d.mic != 1)
+    {
+        if(dmic * d.mic == d.nr)
+            cout << "patrat";
+        else
+            cout << d.mic << " " << d.nr / d.mic;
+    }
+    else if (d.mic == 1)
+        cout << "prim";
+
+sub 2 ex 4 -matrice de tip:
+            1111
+            1222
+            1233
+            1234
+    cod:
+    int i , j , n;
+    cin >> n;
+    int a[101][101] = {0};
+    for(i = 1; i <= n; i++)
+        for(j = 1; j <= n; j++)
+            if(a[i][j] == 0)
+            {
+                a[i][j] = i;
+                a[j][i] = i;
+            }
+    for(i = 1; i <= n; i++)
+    {
+        for(j = 1; j <= n; j++)
+            cout << a[i][j];
+        cout << endl;
+    }
+
+*/
