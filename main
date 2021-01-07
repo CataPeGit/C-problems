@@ -112,6 +112,28 @@ sub 2 ex 4 -matrice de tip:
         cout << endl;
     }
 
+sub 2 ex 5 
+    int text[101];
+    int avemCifre = 0;
+    int cifraMax = NULL;
+    cin.getline(text,101);
+    char *cuvant = strtok(text, " ");
+    while(cuvant != NULL)
+    {
+        if(cuvant[0] >= '0' && cuvant[0] <= '9')
+            {
+                char c = cuvant[0];
+                if(c > cifraMax)
+                    cifraMax = c;
+                avemCifre = 1;
+            }
+        
+    }
+    if(avemCifre == 1)
+        cout << cifraMax <<"0";
+    else 
+        cout << "Nu exista";
+    return 0;
 */
 
 //var 12
