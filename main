@@ -208,3 +208,26 @@ void suma(int n , int &s)
         if(v[i] > 0)
             s = s + i;
 }
+
+/* ceva de la un test
+int putere(int n, int p)
+{
+    int div = 2; //luam o variabila divizor
+    int exp = 0; //luam o variabila exponent
+    while(n != 1) // incepem descompunerea in factori primi pana ajung la 1
+    {
+        while(n % div == 0) // descompunem in factori primi
+        {
+            exp++; //marim exponentul cu 1
+            n = n / div; //impartim cu divizorul
+        }
+        if(p == div) // in cazul in care parametrul p este egal cu divizorul cautat returnam exponentul
+            {
+                return exp;
+            }
+        div++; //crestem divizorul
+        exp=0; // resetam exponentul
+    }
+    return -1; // in cazul contrar returnam -1
+}
+/*
