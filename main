@@ -257,3 +257,161 @@ int putere(int n, int p)
     return -1; // in cazul contrar returnam -1
 }
 /*
+
+
+
+/*
+int main()
+{
+    //bac matrici sub 2 2009: var 12
+    unsigned int i , j , n;
+    cin >> n ;
+    unsigned int a[101][101] = {0};
+    unsigned int prod;
+    for(i = 1; i <= n; i++)
+    {
+        for(j = 1; j <= n; j++)
+        {
+            prod = i * j;
+            cout << prod % 10 << " ";
+        }
+        cout << endl;
+    }
+    return 0;
+}
+
+int main()
+{
+    //bac matrici sub 2 2009: var 13
+    unsigned int i , j , n;
+    cin >> n ;
+    unsigned int a[101][101] = {0};
+
+
+    for(i = 1; i <= n; i++)
+    {
+        for(j = 1; j <= n; j++)
+        {
+            if(i + j == n + 1)
+                a[i][j]  = 0;
+            if(i + j < n + 1)
+                a[i][j] = j;
+            if(i + j >n + 1)
+                a[i][j] = n - i + 1;
+        }
+    }
+
+
+    for(i = 1; i <= n; i++)
+    {
+        for(j = 1; j <= n; j++)
+            cout << a[i][j] << " ";
+        cout << endl;
+    }
+    return 0;
+}
+
+
+int main()
+{
+    //bac matrici sub 2 2009: var 14
+    unsigned int i , j , n;
+    cin >> n ;
+    unsigned int a[101][101];
+    unsigned int aux = n;
+    unsigned int nrcif = 0;
+    while(aux != 0)
+    {
+        aux = aux / 10;
+        nrcif++;
+    }
+
+    for(i = 1; i <= nrcif; i++)
+    {
+        aux = n;
+        for(j = 1; j <= nrcif; j++)
+        {
+            a[i][j] = aux % 10;
+            aux = aux / 10;
+        }
+    }
+
+
+    for(i = 1; i <= nrcif; i++)
+    {
+        for(j = 1; j <= nrcif; j++)
+            cout << a[i][j] << " ";
+        cout << endl;
+    }
+    return 0;
+}
+
+int main()
+{
+    //bac matrici sub 2 2009: var 15
+    unsigned int i , j , n;
+    cin >> n ;
+    unsigned int a[101][101] = {0};
+
+
+    for(i = 1; i <= 6; i++)
+    {
+        unsigned int aux = n;
+        for(j = 1; j <= 6; j++)
+        {
+            if(i == j)
+                a[i][j] = 0;
+            else
+            {
+                a[i][j] = aux % 10;
+                a[j][i] = aux % 10;
+            }
+            aux = aux / 10;
+        }
+    }
+
+
+    for(i = 1; i <= 6; i++)
+    {
+        for(j = 1; j <= 6; j++)
+            cout << a[i][j] << " ";
+        cout << endl;
+    }
+    return 0;
+}
+
+int main()
+{
+    //bac matrici sub 2 2009: var 16
+    unsigned int i , j , n;
+    cin >> n ;
+    unsigned int a[101][101] = {0};
+
+    for(i = 1; i <= n; i++)
+    {
+        for(j = 1; j <= n; j++)
+        {
+            if(i == j)
+                a[i][j] = 0;
+            if(i + j == n + 1)
+                a[i][j]  = 0;
+            if(i < j  && i + j < n + 1)
+                a[i][j] = 1;
+            if(j > i && i + j > n +1)
+                a[i][j] = 3;
+            if(i > j && i + j < n + 1)
+                a[i][j] = 3;
+            if(i > j  && i + j > n + 1)
+                a[i][j] = 2;
+        }
+    }
+
+    for(i = 1; i <= n; i++)
+    {
+        for(j = 1; j <= n; j++)
+            cout << a[i][j] << " ";
+        cout << endl;
+    }
+    return 0;
+}
+*/
