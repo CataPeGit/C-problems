@@ -414,4 +414,68 @@ int main()
     }
     return 0;
 }
+
+
+
+Var MI_2010-august_subiect
+sub 3
+ex 3:
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+void tablou(unsigned int n, unsigned int k, unsigned int a[200])
+    {
+        int aux = 0;
+        for(int i = 1; i <= n; i++)
+            for(int j = 1; j <= n; j++)
+            {
+                a[aux] = i;
+                aux++;
+            }
+    }
+
+int main()
+{
+    unsigned int n, k , a[200];
+    cin >> n >> k;
+    tablou(n,k,a);
+    cout <<endl;
+    for(int i = 1; i <= n * k; i++)
+        cout << a[i] << " ";
+    return 0;
+}
+ex 4:
+#include <iostream>
+#include <fstream>
+using namespace std;
+int main()
+{
+    int n , aux = -1;
+    ifstream fin("bac.txt");
+    while(fin >> n)
+    {
+        if(n % 2 == 0 && n != aux)
+        {
+            aux = n;
+            cout << n <<" ";
+        }
+    }
+    fin.close();
+    return 0;
+}
+
+
+bool numarPrim(n)
+{
+    if(n < 2)
+        return false;
+    if(n == 2)
+        return true;
+    for(int i = 2; i <= n/2 ; i++)
+        if(n % i == 1)
+            return false;
+    return true;
+}
+
 */
