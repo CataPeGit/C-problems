@@ -466,16 +466,75 @@ int main()
 }
 
 
-bool numarPrim(n)
+Modele antrenament 2020
+
+Var 2 :
+void fii(unsigned int n)
+    {
+        cout << "(" << n << " "<< 1 << ")"<< " ";
+        for(int div = 2; div * div <= n; div++)
+            if(n % div == 0)
+                cout << "(" << n / div << " "<< div << ")"<< " ";
+    }
+    
+#include <iostream>
+#include <cstring>
+#include <fstream>
+using namespace std;
+
+int main()
 {
-    if(n < 2)
-        return false;
-    if(n == 2)
-        return true;
-    for(int i = 2; i <= n/2 ; i++)
-        if(n % i == 1)
-            return false;
-    return true;
+    char rez[105] ="";
+    char text[105];
+    cin.get(text,105);
+    char *p = strtok(text , " ");
+    while(p != NULL)
+    {
+        if(p[0] != '-')
+        {
+            strcat(rez , p);
+            strcat(rez , " ");
+        }
+        else
+            strcat(rez , " ");
+        p = strtok( NULL , " ");
+    }
+    cout << rez;
+    return 0;
+}
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main()
+{
+    unsigned int n;
+    unsigned int nr1 = 0, nr2 = 0, nr3 = 0, aux;
+    ifstream f("bac.in");
+    while(f >> n)
+    {
+        if(n % 100 == 20)
+        {
+            if(nr1 < n)
+                nr1 = n;
+            if(nr2 < nr1)
+            {
+                aux = nr2;
+                nr2 = nr1;
+                nr1 = aux;
+            }
+            if(nr3 < nr2)
+            {
+                aux = nr3;
+                nr3 = nr2;
+                nr2 = aux;
+            }
+        }
+    }
+    cout << nr1 << " " << nr2 << " " << nr3;
+    f.close();
+    return 0;
 }
 
 */
