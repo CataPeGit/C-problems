@@ -657,4 +657,93 @@ int main()
         cout << totalNr - poz2 + 1;
     return 0;
 }
+
+
+Antrenamente varianta 4 :
+sub 3 ex 1 :
+void generatoare(unsigned int n )
+{
+    int ok = 0;
+    for(int a = 2; a <= n / 2; a = a + 2)
+        for(int b = 1; b <= n / 2; b++)
+            if( a * b + a / b == n)
+            {
+                ok = 1;
+                cout << a << "-" << b << " ";
+            }
+    if(ok == 0)
+        cout << "nu exista" ;
+}
+int main()
+{
+    unsigned int n ;
+    cin >> n;
+    generatoare(n);
+    return 0;
+}
+
+sub3 ex 2:
+int main()
+{
+    unsigned int n , m, i , j, a[25][25] ;
+    cin >> m >> n;
+    for(j = 0; j < m; j++)
+        for(i = 0; i < n; i++)
+            cin >> a[i][j];
+
+    unsigned int inegal = 0;
+    for(j = 0; j < m; j++)
+    {
+        unsigned int ok = 0;
+        for(i = 0; i < n && ok == 0;  i++)
+            if(a[i][j] == a[i][0])
+            {
+                ok++;
+                inegal++;
+            }
+    }
+
+    cout << n - inegal ;
+
+
+
+    return 0;
+}
+
+#include <iostream>
+#include <cstring>
+#include <fstream>
+using namespace std;
+
+int main()
+{
+    int nr1, nr2;
+    int ap = 0;
+    ifstream fin("bac.in");
+    fin >> nr1;
+    int ok = 0;
+    while(fin >> nr2)
+    {
+        if(nr1 == nr2)
+            ap++;
+        else
+        {
+            if(ap == 1)
+            {
+            ok++;
+            cout << nr1 << " ";
+            }
+
+            ap = 0;
+        }
+        nr1 = nr2;
+    }
+    if(ok == 0)
+        cout <<"nu exsita";
+    else
+    cout << nr1 << " ";
+
+    fin.close();
+    return 0;
+}
 */
