@@ -1,69 +1,540 @@
-//#include <bits/stdc++.h>
 #include <iostream>
-#include <cmath>
 #include <fstream>
+#include <cstring>
 using namespace std;
+
+int main()
+{
+    ifstream f("bac.in");
+    int x,ultmare= -1;
+
+    while(f>>x)
+    {
+        if(ultmare <= x)
+        {
+            ultmare = x;
+            cout << x << " ";
+        }
+    }
+
+    f.close();
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
+    for(int i = 0; i < n; i++)
+        for(int j = 1; j < n; j++)
+        {
+            int aux = a[i][j];
+            int ok = 0;
+            for(int jj = 1; jj < n; jj++)
+                for(int ii = 0; i < n; ii++)
+                    if(aux * a[ii][0] != a[ii][jj])
+                        ok = 1;
+            if(ok == 0)
+                rez = rez * aux;
+        }
+
+#include <iostream>
+#include <cstring>
+using namespace std;
+ifstream f("bac.in");
+int main()
+{
+
+    int n = 0;
+    char spatiu = ' ' ;
+    char s[101];
+    cin.get(s,101);
+    for(int i = 0 ; i <= strlen(s); i++)
+    {
+        cout << s[i];
+        if(s[i] == ' ')
+        {
+            char t = s[i-1];
+            int ok = 0;
+            for(int j = i; j <= strlen(s) && ok == 0; j++)
+            {
+                cout << j;
+                if(s[j] == ' ' && s[j] == NULL)
+                {
+                    if(s[j-1] == t)
+                        {
+                            cout << "succes ";
+                        }
+                    ok++;
+                }
+            }
+
+        }
+    }
+
+    return 0;
+}
+
+
+
+#include    <iostream>
+#include <cstring>
+using namespace std;
+
+int main()
+{
+    char s[20]="CALCULATOARE";
+    int i;
+    for(i =0; i < strlen(s); i++)
+        if(s[i] == 'A' || s[i] == 'O' || s[i] == 'U')
+            cout <<"*";
+        else cout << s[i];
+    return 0;
+}
+
+
+
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+int main()
+{
+    char s[101];
+    cin.getline(s,101);
+    int ok = 0;
+
+    char *cuvant = strtok(s , " ");
+    while(cuvant != NULL)
+    {
+        int nrVoc = 0, nrCon = 0;
+        for(int i = 0 ; i < strlen(cuvant); i++)
+            if(cuvant[i] == 'a' || cuvant[i] == 'e' || cuvant[i] == 'i' || cuvant[i] == 'o' || cuvant[i] == 'u')
+            //if(strchr("aeiou" , cuvant[i]))
+              {
+                  nrVoc++;
+                //  cout << nrVoc << endl;
+              }
+        nrCon = strlen(s) - nrVoc;
+      //  cout << "am consoane:" << nrCon;
+
+        if(nrCon > nrVoc)
+        {
+            cout << cuvant << endl;
+            ok++;
+        }
+        nrCon = 0;
+        nrVoc = 0;
+        cuvant = strtok(NULL , " ");
+    }
+    if(ok == 0)
+        cout <<"Nu exista";
+    return 0;
+}
+
+
+int main()
+{
+    int i ;
+    char s[101];
+    cin.get(s,101);
+    if(s[0] >= 'a' && s[0] <= 'z')
+        s[0] = s[0] - 32;
+    for(i = 1 ; i < strlen(s) ;i++)
+        if(s[i] == ' ')
+        {
+            if(s[i+1] >= 'a' && s[i+1] <= 'z')
+            {
+                s[i+1] = s[i+1] - 32;
+            }
+        }
+
+        else
+            if(s[i+1] >= 'A' && s[i+1] <= 'Z')
+                s[i] = s[i] + 32;
+    cout << s;
+
+
+    return 0;
+}
 
 
 
 int main()
 {
-    int i , j , n;
-    cin >> n;
-    int a[101][101] = {0};
-    int k = 1;
-    for(i = 1; i <= n; i++)
-    {
-        for(j = 1; j <= n; j++)
-        {
-            a[i][j] = k;
-            if(k == 9)
-                k = 1;
-            else
-                k++;
-        }
-    }
+    int i ;
+    char s[101];
+    cin.get(s,101);
+
+    for(i = strlen(s) - 1; i >= 0; i++)
+        if(s[i] == ' ')
+            if(s[i+1] >= 'a' && s[i+1] <= 'z')
+            {
+                s[i+1] = s[i+1] - 32;
+            }
+        else
+            if(s[i] >= 'A' && s[i] <= 'Z')
+                s[i] = s[i] + 32;
+    cout << s;
 
 
-    for(i = 1; i <= n; i++)
-    {
-        for(j = 1; j <= n; j++)
-            cout << a[i][j] << " ";
-        cout << endl;
-    }
     return 0;
 }
 
 
-/*
-    int i , j , n, m;
-    cin >> n >> m;
-    int a[101][101] = {0};
-    int k = 1;
-    for(i = 1; i <= n; i++)
+
+
+
+
+
+
+
+bateria 14:
+#include <iostream>
+#include <fstream>
+#include <cstring>
+using namespace std;
+
+
+int main()
+{
+    int i , n;
+    char s[101];
+    cin.get(s,101);
+    for(i = 0; i <= strlen(s); i++)
+        if(s[i] == '-' && (s[i+1] >= '0' && s[i+1] <= '9'))
+            strcpy(s+i, s+i+1);
+    cout << s;
+    return 0;
+}
+sau
+int main()
+{
+    int i , n;
+    char s[101];
+    cin.get(s,101);
+    for(i = 0; i <= strlen(s); i++)
+        if(!(s[i] == '-' && (s[i+1] >= '0' && s[i+1] <= '9')))
+           cout << s[i];
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <fstream>
+#include <cstring>
+using namespace std;
+
+
+void afisare(char sir[71])
+{
+    for(int i = 0; i <= strlen(sir); i++)
     {
-        for(j = 1; j <= m; j++)
-        {
-            a[i][j] = k;
+        if(sir[i] >='A' && sir[i] <= 'Z')
+            {
+                int k = (int)sir[i] + 32;
+                cout << (char)k;
+            }
+
+        else
+            cout << sir[i];
+    }
+    cout << endl;
+}
+
+int main()
+{
+    ifstream f("atestat.in");
+    ofstream g("atestat.out");
+    char sir[71];
+    f.get(sir,71);
+    afisare(sir);
+
+    int k = 0;
+    for(int i = 1; i < strlen(sir); i++)
+    {
+        if(sir[i] == ' ')
             k++;
+    }
+    k = k + 1;
+    cout << k << endl;
+    k = 0;
+    char litera;
+    cin >> litera;
+    for(int i = 0; i < strlen(sir); i++)
+    {
+        if(sir[i] == 'M')
+            sir[i] = litera;
+    }
+    g << sir;
+    f.close();
+    g.close();
+    return 0;
+}
+
+
+
+bac :
+subiect :https://infonow.ro/public/article-files/E_d_Informatica_2021_sp_MI_C_var_model-1.pdf
+rez : https://pastebin.com/HHejhhEi
+
+atestat:
+ifstream f("bac.txt");
+    ofstream g("atestat.out");
+    int a[1001], n, i,  d;
+    f >> n;
+    for(i = 1; i <= n; i++)
+        f >> a[i];
+
+
+    int ok = 0;
+    int k = 0;
+    int nuexis = 0;
+    for(i = 1;i <= n; i++)
+    {
+        int m = a[i];
+        while(m != 0)
+        {
+        k++;
+         if((m % 10) %2 == 0)
+            {
+                ok ++;
+            }
+        m = m / 10;
+        }
+        if(k == ok)
+        {
+            cout << a[i];
+            nuexis = 1;
+        }
+
+
+        k = 0;ok = 0;
+
+    }
+    if(nuexis == 0)
+        cout << "NU EXISTA NUMERE NUMAI CU CIFRE PARE";
+
+    int p1, p2;
+    cin >> p1 >> p2;
+    for(i = p1; i < p2; i++)
+    {
+        if(a[i] > a[i+1])
+        {
+            int aux = a[i];
+            a[i] = a[i+1];
+            a[i+1] = aux;
         }
     }
 
+        for(i = 1;i <= n; i++)
+            cout << a[i] << " ";
+
+    f.close();
+    g.close();
+
+
+subiectul 7 atestat:
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+void afisare(int n, int a[1001])
+{
+    for(int i = 1; i <= n; i++)
+        cout << a[i] << " ";
+    cout << endl;
+}
+
+
+int main()
+{
+    ifstream f("atestat.in");
+    ofstream g("atestat.out");
+    int n , i, a[1001];
+    f >> n;
+    for(i = 1; i <= n; i++)
+        f >> a[i];
+    afisare(n , a);
+
+    int poz = 1;
+    int maxim = a[1];
+    for(i = 2; i <= n; i++)
+    {
+        if(a[i] > maxim)
+        {
+            maxim = a[i];
+            poz = i;
+        }
+    }
+    cout << maxim << endl;
+    cout << poz << endl;
+
+    int k = 0;
+    for(i = 1; i <= n; i++)
+    {
+        int s = 0;
+        for(int j = 1; j <= a[i] / 2; j++)
+            if(a[i] % j == 0)
+                s = s + j;
+        if(a[i] < s)
+        {
+            g << a[i] << " ";
+            k++;
+        }
+    }
+    if(k == 0) cout <<"NU EXISTA";
+    f.close();
+    g.close();
+    return 0;
+}
+
+
+subiectul 8 atestat:
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+void afisare(int n, int a[1001])
+{
+    for(int i = 1; i <= n; i++)
+        cout << a[i] << " ";
+    cout << endl;
+}
+
+bool ePalindrom(int n)
+{
+    int nInitial, nInvers = 0;
+    nInitial = n;
+    while(n)
+    {
+        int ultCif = n % 10 ;
+        nInvers = nInitial * 10 + ultCif;
+        n = n / 10;
+    }
+    if(nInitial == nInvers)
+        return true;
+    else
+        return false;
+}
+
+int main()
+{
+    ifstream f("atestat.in");
+    ofstream g("atestat.out");
+    int n , i, a[1001];
+    f >> n;
+    for(i = 1; i <= n; i++)
+        f >> a[i];
+    afisare(n , a);
+
+    int s = 0;
+    int k = 0;
+    for(i = 1; i <= n; i++)
+    {
+        if(a[i] % 2 == 0)
+        {
+            s = s + a[i];
+            k++;
+        }
+    }
+    s = s / k;
+    cout << s << endl;
+
+    k = 0;
+    for(i = 1; i <= n; i++)
+    {
+        if(ePalindrom(a[i]) == true)
+        {
+            g << a[i] << " ";
+            k++; cout <<"4";
+        }
+    }
+    if(k == 0) cout <<"NU EXISTA";
+    f.close();
+    g.close();
+    return 0;
+}
+
+subiectul 9 atestat:
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+void afisare(int n, int a[1001])
+{
+    for(int i = n;i >= 1 ; i--)
+        cout << a[i] << " ";
+    cout << endl;
+}
+
+
+int main()
+{
+    ifstream f("atestat.in");
+    ofstream g("atestat.out");
+    int n , i, a[1001];
+    f >> n;
+    for(i = 1; i <= n; i++)
+        f >> a[i];
+    afisare(n , a);
+
 
     for(i = 1; i <= n; i++)
     {
-        for(j = 1; j <= m; j++)
-            cout << a[i][j] << " ";
-        cout << endl;
+        int k = 0;
+        while(a[i] != 0)
+        {
+            k++;
+            a[i] = a[i] / 10;
+        }
+        cout << k << " ";
     }
-*/
+    cout << endl;
+
+    int s =0;
+    for(i = 1; i <= n; i++)
+    {
+        if(a[i] % 2 != 0)
+        {
+            s = s + a[i];
+        }
+    }
+    g << s;
+    f.close();
+    g.close();
+    return 0;
+}
 
 
+subiect 10 :
+#include <iostream>
+#include <fstream>
+using namespace std;
 
+void afisare(int n, int a[1001])
+{
+    for(int i = n;i >= 1 ; i--)
+        cout << a[i] << " ";
+    cout << endl;
+}
 
-
-/*
-bool numarPrim(n)
+bool numarPrim(int n)
 {
     if(n < 2)
         return false;
@@ -74,589 +545,380 @@ bool numarPrim(n)
             return false;
     return true;
 }
-*/
 
-// subiect tutoriale pe net : Cum iei cat mai multe puncte la Bacalaureatul de Informatica
-/*
-Sub I ex pseudocod:
-    unsigned int n, a, b, c, nr, i;
-    cin >> n >> a;
-    nr = 0;
-    i = 1;
-    while(i <= n)
-    {
-        cin >> b;
-        c = 0;
-        while(b % 2 == 0)
-        {
-            b = b / 2;
-            c = c + 1;
-        }
-        if(c == a)
-            nr = nr + 1;
-        i = i + 1;
-    }
-    cout << nr;
-    return 0;
-
-
-Sub 2 ex 3:
-    struct mic{
-        int nr , mic;
-    }d;
-
-    if(d.mic != 1)
-    {
-        if(dmic * d.mic == d.nr)
-            cout << "patrat";
-        else
-            cout << d.mic << " " << d.nr / d.mic;
-    }
-    else if (d.mic == 1)
-        cout << "prim";
-
-sub 2 ex 4 -matrice de tip:
-            1111
-            1222
-            1233
-            1234
-    cod:
-    int i , j , n;
-    cin >> n;
-    int a[101][101] = {0};
+int main()
+{
+    ifstream f("atestat.in");
+    ofstream g("atestat.out");
+    int n , i, a[1001];
+    f >> n;
     for(i = 1; i <= n; i++)
-        for(j = 1; j <= n; j++)
-            if(a[i][j] == 0)
-            {
-                a[i][j] = i;
-                a[j][i] = i;
-            }
-    for(i = 1; i <= n; i++)
-    {
-        for(j = 1; j <= n; j++)
-            cout << a[i][j];
-        cout << endl;
-    }
+        f >> a[i];
+    afisare(n , a);
 
-sub 2 ex 5 
-    int text[101];
-    int avemCifre = 0;
-    int cifraMax = NULL;
-    cin.getline(text,101);
-    char *cuvant = strtok(text, " ");
-    while(cuvant != NULL)
-    {
-        if(cuvant[0] >= '0' && cuvant[0] <= '9')
-            {
-                char c = cuvant[0];
-                if(c > cifraMax)
-                    cifraMax = c;
-                avemCifre = 1;
-            }
-        
-    }
-    if(avemCifre == 1)
-        cout << cifraMax <<"0";
-    else 
-        cout << "Nu exista";
-    return 0;
-*/
-
-//var 12
-int pDoi(int n)
-{
-    int e = 0;
-    int d = 2;
-    while(n != 1)
-    {
-        while(n % d == 0)
-        {
-            e++;
-            n = n / d;
-        }
-
-    }
-}
-
-bool ePatrat(int numar)
-{
-    if((int)sqrt(numar) == sqrt(numar))
-        return true;
-    return false;
-}
-
-void patrate(int x, int y)
-{
-    int s = 0;
     int k = 0;
-    int ok = 0;
-    for(int i = x ; i <= y; i++)
+    for(i = 1; i <= n; i++)
     {
-        if(ePatrat(i))
+        if(numarPrim(a[i]))
+        {
+            cout << a[i] << " ";
+            k++;
+        }
+    }
+    if(k == 0)
+        cout << "NU EXISTA";
+    cout << endl;
+
+    int s =0;
+    k = 0;
+    for(i = 1; i <= n; i++)
+    {
+        if(a[i] % 3 == 0)
+        {
+            s = s + a[i];
+            k++;
+        }
+    }
+    if(k == 0)
+        g << "NU EXISTA NUMERE DIVIZIBILE CU 3";
+    else
+        g << s;
+    f.close();
+    g.close();
+    return 0;
+}
+
+subiectul 16:
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+void afisare(int n, int a[21][21])
+{
+    for(int i = 1; i <= n; i++)
+        {
+        for(int j = 1; j <= n; j ++)
+            cout << a[i] << " ";
+        cout << endl;
+        }
+    cout << endl;
+}
+
+int main()
+{
+    ifstream f("atestat.in");
+    ofstream g("atestat.out");
+    int n , i,j, a[21][21];
+    int k ;
+
+    for(int i = 1; i <= n; i++)
+        for(int j = 1; j <= n; j ++)
+            f >> a[i][j];
+    afisare(n , a);
+    cin >> k;
+    f >> n;
+    int ok = 0;
+    for(int i = 1; i <= n; i++)
+        for(int j = 1; j <= n; j ++)
+            if(a[i][j] == k)
+                ok++;
+    if(ok == 0)
+        cout << "NU" << endl;
+    else
+        cout << "DA" << endl;
+
+    for(int j = 1; j <= n; j ++)
+        for(int i = 1; i <= n; i++)
+
+    f.close();
+    g.close();
+    return 0;
+}
+
+subiectul 17:
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+void afisare(int n, int a[21][21])
+{
+    for(int i = 1; i <= n; i++)
+        {
+        for(int j = 1; j <= n; j ++)
+            cout << a[i] << " ";
+        cout << endl;
+        }
+    cout << endl;
+}
+
+int main()
+{
+    ifstream f("atestat.in");
+    ofstream g("atestat.out");
+    int n , i,j;
+    float a[21][21];
+    int k ;
+
+    for(int i = 1; i <= n; i++)
+        for(int j = 1; j <= n; j ++)
+            f >> a[i][j];
+    afisare(n , a);
+
+    float s = 0;
+    for(int i = 1; i <= n; i++)
+                s = s + a[i][i];
+    float me = s / n;
+    cout << me << endl;
+
+    s = 0;
+    for(int j = 1; j <= n; j ++)
+
+
+    f.close();
+    g.close();
+    return 0;
+}
+
+
+
+
+subiectul 18:
+#include <iostream>
+#include <fstream>
+#include <cstring>
+using namespace std;
+
+
+void afisare(char sir[71])
+{
+    for(int i = 0; i <= strlen(sir); i++)
+    {
+        if(sir[i] >='a' && sir[i] <= 'z')
+            {
+                int k = (int)sir[i] - 32;
+                cout << (char)k;
+            }
+
+        else
+            cout << sir[i];
+    }
+    cout << endl;
+}
+
+int main()
+{
+    ifstream f("atestat.in");
+    ofstream g("atestat.out");
+    char sir[71];
+    f.get(sir,71);
+    afisare(sir);
+
+    int k = 0;
+    for(int i = 0; i <= strlen(sir); i++)
+    {
+        if(strchr("aeiouAEIOU " , sir[i]) == 0)
+            {
+                k++;
+            }
+    }
+    cout << k;
+    k = 0;
+    for(int i = 1; i < strlen(sir); i++)
+    {
+        if(sir[i] == ' ')
             k++;
     }
-    for(int i = x ; i <= y; i++)
+    g << k + 1;
+    f.close();
+    g.close();
+    return 0;
+}
+
+
+subiectul 19:
+#include <iostream>
+#include <fstream>
+#include <cstring>
+using namespace std;
+
+
+void afisare(char sir[71])
+{
+    for(int i = 0; i <= strlen(sir); i++)
     {
-        if(ok == k)
-            if(ePatrat(i))
-                {
-                    s = s +i;
-                    cout << i;
-                }
+        if(sir[i] >='a' && sir[i] <= 'z')
+            {
+                int k = (int)sir[i] - 32;
+                cout << (char)k;
+            }
+
         else
-        {
-            if(ePatrat(i))
-                {
-                    s = s +i;
-                    cout << i <<"+";
-                }
-        }
+            cout << sir[i];
     }
-    cout << "=" << s;
+    cout << endl;
+}
+
+int main()
+{
+    ifstream f("atestat.in");
+    ofstream g("atestat.out");
+    char sir[71];
+    f.get(sir,71);
+    afisare(sir);
+
+    int k = 0;
+    for(int i = 0; i <= strlen(sir); i++)
+    {
+        if(strchr("aeiouAEIOU" , sir[i]) != 0)
+            {
+                k++;
+            }
+    }
+    k = k - 1;
     cout << k;
-}
-
-void suma(int n , int &s)
-{
-    s = 0;
-    int v[10] = {0};
-    while(n > 0)
+    k = 0;
+    for(int i = 1; i < strlen(sir); i++)
     {
-        int uc = n % 10;
-        for(int i = 1; i < 10 ; i= i + 2)
-        {
-            if(i == uc)
-                v[i]++;
-        }
-        n = n / 10;
+        if(sir[i] == ' ' && sir[i+1] == 'a')
+            k++;
     }
-    for(int i = 1; i < 10 ; i = i + 2)
-        if(v[i] > 0)
-            s = s + i;
-}
-
-/* ceva de la un test
-int putere(int n, int p)
-{
-    int div = 2; //luam o variabila divizor
-    int exp = 0; //luam o variabila exponent
-    while(n != 1) // incepem descompunerea in factori primi pana ajung la 1
-    {
-        while(n % div == 0) // descompunem in factori primi
-        {
-            exp++; //marim exponentul cu 1
-            n = n / div; //impartim cu divizorul
-        }
-        if(p == div) // in cazul in care parametrul p este egal cu divizorul cautat returnam exponentul
-            {
-                return exp;
-            }
-        div++; //crestem divizorul
-        exp=0; // resetam exponentul
-    }
-    return -1; // in cazul contrar returnam -1
-}
-/*
-
-
-
-/*
-int main()
-{
-    //bac matrici sub 2 2009: var 12
-    unsigned int i , j , n;
-    cin >> n ;
-    unsigned int a[101][101] = {0};
-    unsigned int prod;
-    for(i = 1; i <= n; i++)
-    {
-        for(j = 1; j <= n; j++)
-        {
-            prod = i * j;
-            cout << prod % 10 << " ";
-        }
-        cout << endl;
-    }
-    return 0;
-}
-
-int main()
-{
-    //bac matrici sub 2 2009: var 13
-    unsigned int i , j , n;
-    cin >> n ;
-    unsigned int a[101][101] = {0};
-
-
-    for(i = 1; i <= n; i++)
-    {
-        for(j = 1; j <= n; j++)
-        {
-            if(i + j == n + 1)
-                a[i][j]  = 0;
-            if(i + j < n + 1)
-                a[i][j] = j;
-            if(i + j >n + 1)
-                a[i][j] = n - i + 1;
-        }
-    }
-
-
-    for(i = 1; i <= n; i++)
-    {
-        for(j = 1; j <= n; j++)
-            cout << a[i][j] << " ";
-        cout << endl;
-    }
-    return 0;
-}
-
-
-int main()
-{
-    //bac matrici sub 2 2009: var 14
-    unsigned int i , j , n;
-    cin >> n ;
-    unsigned int a[101][101];
-    unsigned int aux = n;
-    unsigned int nrcif = 0;
-    while(aux != 0)
-    {
-        aux = aux / 10;
-        nrcif++;
-    }
-
-    for(i = 1; i <= nrcif; i++)
-    {
-        aux = n;
-        for(j = 1; j <= nrcif; j++)
-        {
-            a[i][j] = aux % 10;
-            aux = aux / 10;
-        }
-    }
-
-
-    for(i = 1; i <= nrcif; i++)
-    {
-        for(j = 1; j <= nrcif; j++)
-            cout << a[i][j] << " ";
-        cout << endl;
-    }
-    return 0;
-}
-
-int main()
-{
-    //bac matrici sub 2 2009: var 15
-    unsigned int i , j , n;
-    cin >> n ;
-    unsigned int a[101][101] = {0};
-
-
-    for(i = 1; i <= 6; i++)
-    {
-        unsigned int aux = n;
-        for(j = 1; j <= 6; j++)
-        {
-            if(i == j)
-                a[i][j] = 0;
-            else
-            {
-                a[i][j] = aux % 10;
-                a[j][i] = aux % 10;
-            }
-            aux = aux / 10;
-        }
-    }
-
-
-    for(i = 1; i <= 6; i++)
-    {
-        for(j = 1; j <= 6; j++)
-            cout << a[i][j] << " ";
-        cout << endl;
-    }
-    return 0;
-}
-
-int main()
-{
-    //bac matrici sub 2 2009: var 16
-    unsigned int i , j , n;
-    cin >> n ;
-    unsigned int a[101][101] = {0};
-
-    for(i = 1; i <= n; i++)
-    {
-        for(j = 1; j <= n; j++)
-        {
-            if(i == j)
-                a[i][j] = 0;
-            if(i + j == n + 1)
-                a[i][j]  = 0;
-            if(i < j  && i + j < n + 1)
-                a[i][j] = 1;
-            if(j > i && i + j > n +1)
-                a[i][j] = 3;
-            if(i > j && i + j < n + 1)
-                a[i][j] = 3;
-            if(i > j  && i + j > n + 1)
-                a[i][j] = 2;
-        }
-    }
-
-    for(i = 1; i <= n; i++)
-    {
-        for(j = 1; j <= n; j++)
-            cout << a[i][j] << " ";
-        cout << endl;
-    }
-    return 0;
-}
-
-
-
-Var MI_2010-august_subiect
-sub 3
-ex 3:
-#include <iostream>
-#include <fstream>
-using namespace std;
-
-void tablou(unsigned int n, unsigned int k, unsigned int a[200])
-    {
-        int aux = 0;
-        for(int i = 1; i <= n; i++)
-            for(int j = 1; j <= n; j++)
-            {
-                a[aux] = i;
-                aux++;
-            }
-    }
-
-int main()
-{
-    unsigned int n, k , a[200];
-    cin >> n >> k;
-    tablou(n,k,a);
-    cout <<endl;
-    for(int i = 1; i <= n * k; i++)
-        cout << a[i] << " ";
-    return 0;
-}
-ex 4:
-#include <iostream>
-#include <fstream>
-using namespace std;
-int main()
-{
-    int n , aux = -1;
-    ifstream fin("bac.txt");
-    while(fin >> n)
-    {
-        if(n % 2 == 0 && n != aux)
-        {
-            aux = n;
-            cout << n <<" ";
-        }
-    }
-    fin.close();
-    return 0;
-}
-
-
-Modele antrenament 2020
-
-Var 2 :
-void fii(unsigned int n)
-    {
-        cout << "(" << n << " "<< 1 << ")"<< " ";
-        for(int div = 2; div * div <= n; div++)
-            if(n % div == 0)
-                cout << "(" << n / div << " "<< div << ")"<< " ";
-    }
-    
-#include <iostream>
-#include <cstring>
-#include <fstream>
-using namespace std;
-
-int main()
-{
-    char rez[105] ="";
-    char text[105];
-    cin.get(text,105);
-    char *p = strtok(text , " ");
-    while(p != NULL)
-    {
-        if(p[0] != '-')
-        {
-            strcat(rez , p);
-            strcat(rez , " ");
-        }
-        else
-            strcat(rez , " ");
-        p = strtok( NULL , " ");
-    }
-    cout << rez;
-    return 0;
-}
-
-#include <iostream>
-#include <fstream>
-using namespace std;
-
-int main()
-{
-    unsigned int n;
-    unsigned int nr1 = 0, nr2 = 0, nr3 = 0, aux;
-    ifstream f("bac.in");
-    while(f >> n)
-    {
-        if(n % 100 == 20)
-        {
-            if(nr1 < n)
-                nr1 = n;
-            if(nr2 < nr1)
-            {
-                aux = nr2;
-                nr2 = nr1;
-                nr1 = aux;
-            }
-            if(nr3 < nr2)
-            {
-                aux = nr3;
-                nr3 = nr2;
-                nr2 = aux;
-            }
-        }
-    }
-    cout << nr1 << " " << nr2 << " " << nr3;
+    g << k;
     f.close();
+    g.close();
     return 0;
 }
 
-Var 2 antrenament 2020:
-void fii(unsigned int n)
-    {
-        cout << "(" << n << " "<< 1 << ")"<< " ";
-        for(int div = 2; div * div <= n; div++)
-            if(n % div == 0)
-                cout << "(" << n / div << " "<< div << ")"<< " ";
-    }
-
+subiectul 20:
 #include <iostream>
 #include <fstream>
-using namespace std;
-
-int main()
-{
-    unsigned int n;
-    unsigned int nr1 = 0, nr2 = 0, nr3 = 0, aux;
-    ifstream f("bac.in");
-    while(f >> n)
-    {
-        if(n % 100 == 20)
-        {
-            if(nr1 < n)
-                nr1 = n;
-            if(nr2 < nr1)
-            {
-                aux = nr2;
-                nr2 = nr1;
-                nr1 = aux;
-            }
-            if(nr3 < nr2)
-            {
-                aux = nr3;
-                nr3 = nr2;
-                nr2 = aux;
-            }
-        }
-    }
-    cout << nr1 << " " << nr2 << " " << nr3;
-    f.close();
-    return 0;
-}
-
-Antrenamente 2020 varianta 3 :
-sub 2 ex 3:
-#include <iostream>
 #include <cstring>
 using namespace std;
 
-int main()
+
+void afisare(char sir[71])
 {
-    char s[20];
-    int p;
-    cin.get(s,20);
-    for(p = 0; s[p] != '\0'; p++)
-        if(s[p] == 'A' && s[p-1] == 'I');
-        else if(s[p] == 'A' && s[p+1] == 'I');
+    for(int i = 0; i <= strlen(sir); i++)
+    {
+        if(sir[i] >='A' && sir[i] <= 'Z')
+            {
+                int k = (int)sir[i] + 32;
+                cout << (char)k;
+            }
+
         else
-            cout << s[p];
+            cout << sir[i];
+    }
+    cout << endl;
+}
+
+int main()
+{
+    ifstream f("atestat.in");
+    ofstream g("atestat.out");
+    char sir[71];
+    f.get(sir,71);
+    afisare(sir);
+
+    int k = 0;
+    for(int i = 1; i < strlen(sir); i++)
+    {
+        if(sir[i] == ' ')
+            k++;
+    }
+    k = k + 1;
+    cout << k << endl;
+    k = 0;
+    char litera;
+    cin >> litera;
+    for(int i = 0; i < strlen(sir); i++)
+    {
+        if(sir[i] == 'M')
+            sir[i] = litera;
+    }
+    g << sir;
+    f.close();
+    g.close();
     return 0;
 }
 
-sub 3 ex 2:
-#include <iostream>
-#include <cstring>
-#include <fstream>
-using namespace std;
+
+
+
+
+
+
+
+
+
+
+
+
+
+    int a = 9999, b = -9999;
+    for(i = 1;i <= n; i++)
+    {
+        if(a[i] < a)
+            a = a[i];
+        if(a[i] > b)
+            b = a[i];
+    }
+
+
+
+
 
 
 int main()
 {
-    unsigned int n, i, j, a[25][25];
+    int n , k = 0;
     cin >> n;
-    for(i = 1; i <= n; i++)
-        for( j = 1; j <= n; j++)
-        {
-            if(i + j == n + 1)
-                a[i][j] = 0;
-            else if(i + j < n + 1)
-                a[i][j] = n - i - j + 1;
-            else if(i + j > n + 1)
-                a[i][j] = (n - i - j + 1) * (-1);
-        }
-    for(i = 1; i <= n; i++)
+    ifstream f("bac.txt");
+    char aux[21],cuvant[21];
+    f>> cuvant;
+    strcpy(aux , cuvant);
+    while(n != 1)
     {
-        for( j = 1; j <= n; j++)
-            cout << a[i][j] << " ";
-        cout << endl;
+        f>> cuvant;
+        if(strncmp(aux,cuvant,3) == 0)
+            k++;
+        n--;
     }
+    cout << k;
     return 0;
 }
 
-sub 3 ex 3:
-#include <iostream>
-#include <cstring>
-#include <fstream>
-using namespace std;
 
+
+varianta sub 2011
 int main()
 {
-    ifstream f("bac.in");
-    int n, ok, poz1, poz2, totalNr = 0;
-    ok = 0;
-    while(f >> n)
+    int n , k = 0;
+    cin >> n;
+    ifstream f("bac.txt");
+    char aux[21],cuvant[21];
+    f>> cuvant;
+    strcpy(aux , cuvant);
+    for(int i = 1; i < n ; i++)
     {
-        totalNr++;
-        if(n < 0 && ok == 0)
-        {
-            poz1 = totalNr;
-            ok = 1;
-        }
-        if(n < 0 && ok == 1)
-            poz2 = totalNr;
+        f >> cuvant;
+        if(strncmp(aux,cuvant,3) == 0)
+            k++;
     }
-    if(totalNr - poz1 > totalNr - poz2)
-        cout << totalNr - poz1 + 1;
-    else
-        cout << totalNr - poz2 + 1;
+    cout << k;
     return 0;
 }
+-------------------------------------------
+
+1 1 0 0 1 0
+0 1 1 1 1 1
+1 0 0 0 1 0
+
+    for(j = 1; j <= m; j++)
+    {
+        for(i = 1; i <= n; i++)
+            cout << a[i][k];
+        cout << endl;
+    }
 
 
 Antrenamente varianta 4 :
@@ -745,5 +1007,1157 @@ int main()
 
     fin.close();
     return 0;
+}
+
+varianta 6 :
+sub 3 ex 2:
+#include    <iostream>
+#include    <cstring>
+
+using namespace std;
+
+int main()
+{
+    int nr = 0;
+    //char text[101] = "ei au plantat tamarix ea a adus iasomie";
+    char text[101];
+    cin.getline(text, 101);
+    char *cuv = strtok(text, " ");
+    while(cuv != NULL)
+    {
+        int voc = 0, cons = 0;
+        for(int i = 0; i < strlen(cuv); i++)
+            if(cuv[i] == 'a' || cuv[i] == 'e' || cuv[i] == 'i' || cuv[i] == 'o' || cuv[i] == 'u')
+                voc++;
+        cons = strlen(cuv) - voc;
+        if(voc < cons)
+        {
+            cout << cuv << "\n";
+            nr++;
+        }
+        cuv = strtok(NULL, " ");
+    }
+    if(nr == 0)
+        cout << "Nu exista!";
+    return 0;
+}
+
+#include <iostream>
+#include <cstring>
+#include <fstream>
+using namespace std;
+
+int main()
+{
+    ofstream g("bac.out");
+    int v[7];
+    int p1, p2;
+    cin >> p1 >> p2;
+    int nr = 0;
+    for(int i = 9; i >= 1 ; i--)
+        if(p1 % i == 0)
+        {
+            int c1 = i;
+            int c2 = p1 / i;
+            if(c2 < 10)
+            {
+                v[0] = c1;
+                v[1] = c2;
+                for(int j = 9; j >= 0; j--)
+                    for(int k = 9; k >= 0; k--)
+                    {
+                        int c1 = i;
+                        int c2 = p2 / i;
+                        if(c2 < 10)
+                        {
+                            v[2] = j;
+                            v[3] = j;
+                            v[4] = j;
+                            v[5] = j;
+                            v[6] = c1;
+                            v[7] = c2;
+                            g << v[0] <<v[1] << v[2] << v[3] << v[4] << v[5] << v[6] << v[7] << endl  ;
+                        }
+                    }
+            }
+        }
+    return 0;
+}
+
+test antrenament 2021 var 1 :
+sub 3 ex 1:
+#include <iostream>
+using namespace std;
+
+void divX(int n, int x)
+{
+    for(int d = n; d >= 0; d--)
+    {
+        cout << d * x <<" ";
+    }
+}
+//sau
+void divX(int n, int x)
+{
+    while(n != 0)
+    {
+        cout << n * x << " ";
+        n --;
+    }
+}
+
+int main()
+{
+    int n , x;
+    cin >> n >> x;
+    divX(n ,x );
+    return 0;
+}
+
+sub 3 ex 2 :
+#include <iostream>
+using namespace std;
+int main()
+{
+    int n , a[101][101];
+    int i , j;
+    cin >> n;
+    for(i = 1; i <= n; i++)
+        for(j = 1; j <= n; j++)
+            cin >> a[i][j];
+    for(i = 1; i <= n; i++)
+        cout << a[i][1] << " ";
+    for(j = 2; j <= n; j++)
+        cout << a[n][j] << " ";
+    for(i = n - 1; i >= 1; i--)
+        cout << a[i][n] << " ";
+    for(j = n - 1; j >= 2; j--)
+        cout << a[1][j] << " ";
+    return 0;
+}
+sub 3 ex 3:
+#include <iostream>
+#include <fstream>
+using namespace std;
+ifstream f("bac.in");
+int main()
+{
+
+    int n , i, ok = 0;
+    int v[101] ={0};
+    while(f >> n)
+    {
+        if(n >= 10 && n <= 98)
+            v[n] = 1;
+    }
+    for(i = 98; i >= 10 && ok < 2; i--)
+        if(v[i] == 0)
+        if(i % 10 != i / 10)
+    {
+        cout << i << " ";
+        ok++;
+    }
+    if(ok == 0)
+        cout << "NU EXISTA";
+    return 0;
+}
+
+bat 17:
+struct obiectiv{
+    int cod;
+    struct {
+        int zi;
+        int luna;
+    }dataInceput, dataFinal;
+}ob;
+
+
+
+
+//idk de unde:
+#include <iostream>
+#include <cstring>
+#include <fstream>
+using namespace std;
+int main()
+{
+    int n ; int a[101][101];
+    cin >> n;
+    for(int i = 1; i<= n ; i++)
+        for(int j = 1 ; j <= n; j++)
+            cin >> a[i][j];
+     for(int j = 1 ; j <= n; j++)
+ {
+    for(int i = 1; i<= n ; i++)
+            cout << a[i][j];
+        cout << endl;
+}
+    return 0;
+}
+
+
+//Liceu Racovita var 41 sub 3 ex 3:
+#include <iostream>
+using namespace std;
+
+int DIST(int a[101], int n)
+{
+    int j, i;
+    for(j = 1; j <= n; j++)
+    {
+        int ok = 0;
+        for(i = 1; i <=n; i++)
+            if(a[j] == a[i])
+                ok++;
+        if(a[j] - a[j-1]  > 1 || a[j] - a[j+1] > 1)
+                ok++;
+        if(ok > 1)
+            return 0;
+    }
+    return 1;
+}
+
+int main()
+{
+    int n = 7;
+    int a[101];
+    for(int i = 1; i <=n; i++)
+        cin >> a[i];
+    cout << DIST(a,n);
+
+    return 0;
+}
+
+//varianta 6 cred - sub 3 ex ultim:
+#include <iostream>
+#include <cstring>
+#include <fstream>
+using namespace std;
+
+int main()
+{
+    ifstream f("bac.txt");
+    int k , x , lungimeMax = 0 ,lungime = 0 , nrMultimi = 0;
+    f >> k;
+    while(f >> x)
+    {
+        if(x % k == 0)
+        {
+            lungime++;
+            if(lungimeMax < lungime)
+            {
+                lungimeMax = lungime;
+                nrMultimi = 1;
+            }
+            else if(lungimeMax == lungime)
+                nrMultimi++;
+        }
+        else
+            lungime = 0;
+    }
+    cout << lungimeMax << " " << nrMultimi;
+    return 0;
+}
+
+//Varianta 10 sub 3 ex ultim
+#include <iostream>
+#include <fstream>
+using namespace std;
+int main()
+{
+    ifstream f("bac.txt");
+    int nr, nrPred, ratMax , ratCrt, ratPrec, lung = 0, lungMax = 0;
+    f >> nrPred;
+    while(f >> nr)
+    {
+        ratCrt = nr - nrPred;
+        if(ratCrt == ratPrec)
+        {
+            lung++;
+            if(lung > lungMax)
+            {
+                lungMax = lung;
+                ratMax = ratCrt;
+            }
+        }
+        else
+            lung = 0;
+
+
+        ratPrec = ratCrt;
+        nrPred = nr;
+    }
+    if(lungMax != 0)
+        cout << ratMax;
+    else
+        cout << "Nu exista";
+    return 0;
+}
+
+// Varianta 8 antrenament 2020
+sub III:
+
+ex 1:
+#include <iostream>
+#include <cstring>
+#include <fstream>
+using namespace std;
+int suma(int n)
+{
+    int div = 2;
+    int exp = 0;
+    int sum = 0;
+    while(n > 1)
+    {
+        while(n % div == 0)
+        {
+            exp++;
+            n = n / div;
+        }
+        if(exp > 0)
+        {
+            int k = 0;
+            for(int i = 1; i <= div; i++)
+                if(div % i == 0)
+                    k++;
+            if(k == 2)
+                sum = sum + div;
+        }
+        div++;
+        exp = 0;
+    }
+    return sum;
+}
+int main()
+{
+    int n = 12;
+    cout << suma(n);
+    return 0;
+}
+
+ex 2:
+// var mea
+#include <iostream>
+using namespace std;
+int main()
+{
+    int n, a[101][101],k,i,j;
+    cin >> n >> k;
+    for(i = 1; i <= n ;i++)
+        for(j = 1; j <= n; j++)
+            cin >> a[i][j];
+    int aux = a[k][1];
+    for(j = 1; j < n / 2; j++)
+            a[k][j] = a[k][j+1];
+    a[k][n/2] = aux;
+    cout << endl;
+    for(i = 1; i <= n ;i++)
+    {
+        for(j = 1; j <= n; j++)
+                cout << a[i][j] << " ";
+        cout << endl;
+    }
+    return 0;
+}
+// Tutoriale pe net approach:
+#include <iostream>
+using namespace std;
+int main()
+{
+    int n, a[101][101],k,i,j;
+    cin >> n >> k;
+    for(i = 1; i <= n ;i++)
+        for(j = 1; j <= n; j++)
+            cin >> a[i][j];
+
+    int aux = a[k][1];
+    for(j = 1; j < k - 1; j++)
+            a[k][j] = a[k][j+1];
+    a[k][k-1] = aux;
+
+    cout << endl;
+
+    for(i = 1; i <= n ;i++)
+    {
+        for(j = 1; j <= n; j++)
+                cout << a[i][j] << " ";
+        cout << endl;
+    }
+    return 0;
+}
+
+ex 3:
+#include <iostream>
+#include <cstring>
+#include <fstream>
+using namespace std;
+
+int main()
+{
+    ifstream f("bac.txt");
+    unsigned int ap[10] = {0};
+    unsigned int poz[10] = {0};
+    unsigned int x, lungime = 0;
+    while(f >> x)
+    {
+        lungime++;
+        ap[x%10]++;
+        poz[x%10] = lungime;
+    }
+
+    unsigned int maxim = 0;
+    for(unsigned int i = 0; i <= 9;i++)
+        if(ap[i] > maxim)
+            maxim = ap[i];
+    for(unsigned int i = 0; i <= 9;i++)
+        if(ap[i] == maxim)
+            cout << poz[i] << " ";
+
+    return 0;
+}
+
+simulare tpn :
+#include <iostream>
+#include <cstring>
+#include <fstream>
+using namespace std;
+
+void dublicare(int  n, int &d)
+{
+    d = 0; int mult = 1;
+    while(n > 0)
+    {
+        int ultCif = n % 10;
+
+        n = n / 10;
+        if(ultCif % 2 == 0)
+        {
+            int par = ultCif * 10 + ultCif;
+            d = par * mult + d;
+            mult = mult * 100;
+
+        }
+        else
+        {
+            d = d + ultCif * mult;
+            mult =mult * 10;
+        }
+    }
+    if(d == 0)
+        d = -1;
+}
+
+int main()
+{
+    int n = 2380, d = 0;
+    dublicare(n,d);
+    cout << d;
+    return 0;
+}
+
+#varinata august 2019:
+sub 3:
+ex 1:
+#include    <iostream>
+#include    <cstring>
+
+using namespace std;
+
+int MaxImp(int a,int b)
+{
+    for(int i = b; i >= a; i--)
+    {
+        int prod = 1;
+        for(int d = 2; d <= i / 2; d++)
+            if(i % d == 0 && d % 2 != 0)
+                prod = prod * d;
+        if(prod > i)return prod;
+    }
+    return 0;
+}
+
+int main()
+{
+    unsigned int a, b;
+    cin >> a >> b;
+    unsigned int maxim = MaxImp(a,b);cout << maxim;
+    return 0;
+}
+
+ex 2:
+#include    <iostream>
+#include    <cstring>
+
+using namespace std;
+
+
+int main()
+{
+    int m, ok, aux, a[21][21];
+    unsigned int n,i,j;
+    cin >> n;
+    for(j = 1; j <= n; j++)
+        for(i = 1; i <= n; i++)
+            cin >>a[i][j];
+    m = 1;
+    ok = 0;
+    aux= a[1][1];
+    while(m <= n && ok == 0)
+    {
+        for(j = 1; j <= m; j++)
+            for(i = 1; i <= m; i++)
+                if(aux != a[i][j])
+                    ok = 1;
+        if(ok == 0)
+            m++;
+    }
+    if(ok == 1)
+        m--;
+    cout << m;
+    return 0;
+}
+
+ ex 3:
+ #include    <iostream>
+#include    <cstring>
+#include <fstream>
+using namespace std;
+
+
+int main()
+{
+    int v[1001] = {0};
+    ifstream f("bac.txt");
+    int x,i;
+    while(f >> x)
+        v[x]++;
+    for(i = 1; i <= 1000;i = i+2)
+    {
+        if(v[i] > 0)
+        {
+            x = v[i];
+            while(x > 0)
+            {
+                cout << i << " ";
+                x--;
+            }
+        }
+    }
+    for(i = 0; i <= 1000;i = i+2)
+    {
+        if(v[i] > 0)
+        {
+            x = v[i];
+            while(x > 0)
+            {
+                cout << i << " ";
+                x--;
+            }
+        }
+    }
+    f.close();
+    return 0;
+}
+
+
+PBinfo:
+Problema #2840:
+#include <iostream>
+#include <fstream>
+using namespace std;
+int main()
+{
+    ifstream f("secventauniforma.in");
+    ofstream g("secventauniforma.out");
+    int x, lung, lungMax,aux, xDinMax; // aux e nr anterior
+    f >> aux;
+    lung = 1;
+    lungMax = lung;
+    xDinMax = aux;
+    while(f >> x)
+    {
+        if(x == aux)
+        {
+            lung++;
+        }
+        else
+        {
+            lung = 1;
+            aux = x;
+        }
+        if(lungMax <= lung)
+        {
+            lungMax = lung;
+            xDinMax = aux;
+        }
+    }
+    g << lungMax;
+    g << endl;
+    while(lungMax != 0)
+    {
+        g << xDinMax << " ";
+        lungMax--;
+    }
+    g.close();
+    f.close();
+    return 0;
+}
+
+
+Problema # 2533:
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+
+int main()
+{
+    ifstream f("secventaincadrata.in");
+    ofstream g("secventaincadrata.out");
+    int pozitie1[10] = {0},pozitie2[10] = {0}, lungime = 0;
+    int x;int L =0;
+    while(f >> x)
+    {
+        lungime++;
+        pozitie2[x] = lungime;
+        if(pozitie1[x] == 0)
+            pozitie1[x] = lungime; // aici e prima aparitie a lui x
+    }
+
+    for(int i = 0; i <= 9; i++)
+    {
+        int aux = 0;
+        if(pozitie1[i] != 0 && pozitie2[i] != 0)
+            aux = pozitie2[i] - pozitie1[i] + 1;
+        if(L < aux)
+        {
+            L = aux;
+        }
+    }
+    g << L << endl;
+    for(int i = 0; i <= 9; i++)
+    {
+        int aux = 0;
+        if(pozitie1[i] != 0 && pozitie2[i] != 0)
+            aux = pozitie2[i] - pozitie1[i] + 1;
+        if(L == aux)
+        {
+            g << i << " ";
+        }
+
+    }
+    g.close();
+    f.close();
+    return 0;
+}
+
+
+Problema #2827
+#include <iostream>
+#include <cstring>
+#include <fstream>
+using namespace std;
+
+
+int main()
+{
+    ifstream f("bac.txt");
+    ofstream g("bac.out");
+    int ok1 = 0, ok2 = 0;
+    int par1 = 0 , par2 = 0 , x; // numerele pare maxime
+    int impare = 0; // contor nr impare
+    while(f >> x && impare < 4)
+    {
+        if(x % 2 != 0)
+            impare++;
+        else if(impare == 3)
+        {
+            if(x > par1)
+            {
+                par1 = x;
+                if(ok1 == 1)
+                    ok2 = 1;
+            }
+            if(par1 > par2)
+            {
+                ok1 = 1;
+                int aux = par2;
+                par2 = par1;
+                par1 = aux;
+            }
+        }
+    }
+    if(ok1 == 1 && ok2 == 1)
+            g << par1 << " " << par2;
+    else
+        g << "nu exista";
+    g.close();
+    f.close();
+    return 0;
+}
+
+
+
+
+model varianta 2018 :
+
+sub 2  :
+ex 5:
+#include <iostream>
+#include <cmath>
+#include <cstring>
+using namespace std;
+
+int main()
+{
+    int n; int i,j;
+    int a[100][100];
+    cin >> n;
+    for(i = 1 ; i <= n; i++)
+        for(j  = 1 ; j <= n; j++)
+            a[i][j] = 2;
+    for(i = 1 ; i <= n; i++)
+        for(j  = 1 ; j <= n; j++)
+            if(i + j == n + 1)
+            {
+                a[i][j] = 1;
+                a[i][j-1] = 1;
+                a[i][j+1] = 1;
+            }
+
+
+
+
+    for(i = 1 ; i <= n; i++)
+    {
+        for(j  = 1 ; j <= n; j++)
+            cout  << a[i][j] << " ";
+        cout  << endl;
+    }
+    return 0;
+}
+
+sub III
+3.
+#include <iostream>
+#include <cmath>
+#include <cstring>
+using namespace std;
+
+void divizori(int n, int &x,  int &y, int &z)
+{
+    int  s = 0;
+    x = -1 ;
+    y = -1;
+    z = -1;
+    for(int i = n / 2; i > 1; i--)
+    {
+        if(n %  i == 0)
+        {
+            s = s + i;
+            if(z == -1)
+            {
+                z = i;
+            }
+            else if(y == -1)
+            {
+                y =i;
+            }
+            else if(x == -1)
+            {
+                x = i;
+            }
+        }
+
+        if(s == n)
+        {
+            return ;
+        }
+        else if(s > n)
+        {
+            s = s - x;
+            x = -1;
+        }
+    }
+    z = 0;x = 0; y  = 0;
+}
+int main()
+{
+    int n,x,y,z;
+    n = 9;
+    divizori(n,x,y,z);
+    cout << x << "  "<< y<< "  "<< z << "  ";
+    return 0;
+}
+
+ex 4:
+#include <iostream>
+#include <cmath>
+#include <fstream>
+#include <cstring>
+using namespace std;
+
+int main()
+{
+    int  x;
+    int v[100] = {0};
+    ifstream f("bac.txt");
+    while(f >> x)
+    {
+        while(x > 9)
+        {
+            int aux = x % 100;
+            x = x / 10;
+            v[aux]++;
+        }
+    }
+    int ok = 0;
+    for(int i = 10;  i <= 99; i++)
+        if(v[i] == 1)
+        {
+            ok = 1;
+            cout << i << " ";
+        }
+    if(ok == 0) cout <<  "nu exista";
+    f.close();
+    return 0;
+}
+
+simulare 2019:
+ex 1:
+#include <iostream>
+#include <cmath>
+#include <fstream>
+#include <cstring>
+using namespace std;
+
+void inserare(int &n)
+{
+    int aux =  n;
+    int lung = 1;
+    while(aux > 0)
+    {
+        lung = lung * 10;
+        aux = aux / 10;
+    }
+    int auxlung = 1;
+    int lungstop = lung;
+    while(auxlung < lungstop)
+    {
+        int ok = n % lung;
+        if(ok > 9)
+            ok = ok / (lung / 10);
+        aux = aux * 10 + ok;
+        auxlung = auxlung * 10;
+        lung = lung / 10;
+        int next = 0;
+        if(n % lung > 9)
+            next = (n%lung)/(lung/10);
+        else
+            next = n % lung;
+        if(next - ok > 0 && lung > 1)
+        {
+            aux = aux * 10 + (next - ok);
+            auxlung = auxlung * 10;
+            lungstop = lungstop * 10;
+        }
+        else if(next - ok < 0 && lung > 1)
+        {
+            aux = aux * 10 + (ok - next);
+            auxlung = auxlung * 10;
+            lungstop = lungstop * 10;
+        }
+        else if(lung > 1)
+        {
+            aux = aux * 10;
+            auxlung = auxlung * 10;
+            lungstop = lungstop * 10;
+        }
+    }
+    n = aux;
+}
+
+
+int main()
+{
+    int n = 7255;
+    inserare(n);
+    cout << n;
+    return 0;
+}
+ex 3:
+#include <iostream>
+#include <cmath>
+#include <fstream>
+#include <cstring>
+using namespace std;
+
+int main()
+{
+    int  x,xpar = -1; int ximpar= -1;
+    ifstream f("bac.txt");
+    int lung = 0;
+    int ok = 0;
+    int n;
+    f >> n;
+    while(n > lung && f >> x)
+    {
+        lung++;
+        if(x % 2== 0)
+            if( x > xpar)
+                xpar = x;
+        else if(x > ximpar && x % 2 != 0)
+            ximpar = x;
+    }
+
+    while(ok == 0 && f >>  x)
+    {
+        if(x % 2 == 0)
+            {if(ximpar >= x)ok = 1;}
+        else if(xpar >= x) ok = 1;
+    }
+
+    if(ximpar == -1 || xpar == -1)
+        ok = 0;
+    if(ok == 0)
+         cout << "da";
+    else
+        cout  << "nu";
+    f.close();
+    return 0;
+}
+ex 2
+#include <iostream>
+#include <cmath>
+#include <fstream>
+#include <cstring>
+using namespace std;
+
+int main()
+{
+    char s[51], fin[51]="";
+    cin.get(s,51);
+    char *cuv = strtok(s," ");
+    while(cuv != NULL)
+    {
+        if(strchr(cuv,'.'))
+        {
+            if(cuv[0] == 'C')
+                strcat(fin,"COLEGIUL ");
+            else if(cuv[0] == 'L')
+                strcat(fin,"LICEUL ");
+            else if(cuv[0] == 'N')
+                strcat(fin,"NATIONAL ");
+            else if(cuv[0] == 'T')
+                strcat(fin,"TEORETIC ");
+        }
+        else
+        {
+            strcat(fin, cuv);
+            strcat(fin, " ");
+        }
+
+        cuv = strtok( NULL, " ");
+    }
+    strcat(fin, "\0");
+    cout << fin;
+    return 0;
+}
+
+Bac 2019 iulie:
+sIII
+ex 1:
+#include <iostream>
+#include <cmath>
+#include <fstream>
+#include <cstring>
+using namespace std;
+
+void Impare(unsigned int &n)
+{
+    int p = 1;
+    int aux = 0;
+    while(n > 0)
+    {
+        int uc = n % 10;
+        n = n / 10;
+        if(uc % 2 != 0)
+        {
+            uc = uc - 1;
+            aux = aux + p * uc;
+        }
+        else aux = aux + p * uc;
+        p = p * 10;
+    }
+    n = aux;
+}
+
+int main()
+{
+    unsigned int n =15690;
+    Impare(n);
+    cout << n;
+    return 0;
+}
+
+ex 2:
+
+ex 3:
+#include <iostream>
+#include <cmath>
+#include <fstream>
+#include <cstring>
+using namespace std;
+int main()
+{
+    ifstream f("bac.txt");
+    int x,vmax,xant;
+    f >> x;
+    cout << x << " ";
+    xant = x;
+    vmax = x;
+    int disp = 1;
+    while(f >> x)
+    {
+        if(x > vmax )
+            disp = 1;
+        if(x > vmax || (xant == x && xant == vmax))
+        {
+            if ( disp == 1)
+            {
+                vmax = x;
+                cout << x << " ";
+            }
+
+        }
+        else disp = 0;
+        xant = x;
+
+    }
+    return 0;
+}
+
+
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int n,a[101][101];
+    cin >> n;
+    for(int i = 1; i <= n; i++)
+        for(int j = 1; j <= n; j++)
+            cin >> a[i][j];
+    int ok = 0;
+    for(int i = 1; i <= n; i++)
+    {
+        for(int j = 1; j <= n; j++)
+            if(a[i][j] != a[n+1-j][n+1-i])
+            ok++;
+        cout << endl;
+    }
+    for(int i = 1; i <= n; i++)
+    {
+        for(int j = 1; j <= n; j++)
+        {
+            cout << a[i][j] << " ";
+        }
+        cout << endl;
+    }
+    cout << ok;
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include    <iostream>
+#include <cstring>
+using namespace std;
+
+int main()
+{
+    char s[20]="CALCULATOARE";
+    int i;
+    for(i =0; i < strlen(s); i++)
+        if(s[i] == 'A' || s[i] == 'O' || s[i] == 'U')
+            cout <<"*";
+        else cout << s[i];
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ void prime(int n, int &x, int &y) {
+   int nr_prime = 0, i, j, este_prim, am_terminat = 0;
+   for(i = n; i >= 2 && am_terminat == 0; --i){
+       este_prim = 1;
+       for(j = 2; j * j <= i; ++j){
+           if(i % j == 0)
+               este_prim = 0;
+       }
+       if(este_prim == 1) {
+           if (nr_prime == 0)
+           {
+               y = i;                nr_prime ++;
+           }
+
+           else {
+               x = i;
+               am_terminat = 1;
+           }
+
+       }
+   }
+}
+
+
+bool numarPrim(n)
+{
+    if(n < 2)
+        return false;
+    if(n == 2)
+        return true;
+    for(int i = 2; i <= n/2 ; i++)
+        if(n % i == 0)
+            return false;
+    return true;
 }
 */
