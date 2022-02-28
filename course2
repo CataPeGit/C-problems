@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <math.h>
+
+
+void compute_mag_phase(double a, double b, double* mag, double* phase) {
+    if(phase != NULL)
+        *phase = atan(b / a);
+    *mag = sqrt(a * a + b * b);
+    
+    // mag has the type double*
+    double** addMag = &mag;
+
+    print("Mag and Phase are: %f and %f", *mag, *phase);
+    
+}
+
+
+int main()
+{
+    double a = 10;
+    double b = 20;
+    double mag = 0;
+    double phase = 0;
+    
+    //scanf is a funtion so we need to pass by pointer(i. e. &a not a)
+    scanf("%lf", &a);
+    
+    // mag = 0 is the same as mag = NULL
+    
+    
+    // mag and phase need to be pointers so we use &
+    // <type> v; &v -> <type>*
+    compute_mag_phase(a, b, &mag, &phase);
+    
+    // cannot change const
+    const int v = 10;
+    const int* pv = &v;
+    
+    // can change in but not the const pointer
+    int v2 = 10;
+    int* const pv2 = &v2;
+    
+    // int a = 5; --> 4 bytes 
+    // int arr[5] --> 20 bytes 
+    // for example the elements of arr[5] can have the location 65516 65518 65520 65522 55524
+    // arr is a pointer to 65516
+    // int* p = arr + 1 --> pointer to 65520 because for the int type we increase by 4 
+    // !!! BUT the offset in memory is still 1, not 4!!!
+    // example:
+    char c = 'a';
+    short s = 2;
+    int i = 4;
+    char* pc = &c;
+    short* ps = &s;
+    int* pi = &i;  
+    
+    print("pc %p %p", pc, pc + 1); 
+    print("ps %p %p", pc, ps + 1);
+    print("pi %p %p", pc, pi + 1);
+    // you can't add 2 pointers but you can subtract them to get the offset
+    return 0;
+}
