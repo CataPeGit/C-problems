@@ -13,18 +13,8 @@ int main() {
     char s[256];
     int shift = 0;
     char temp;
-    
-    /*
-    int age;
-	char name[30];
-	char temp;
-	
-	printf("Enter age: ");
-	scanf("%d",&age);
-	printf("Enter name: ");
-	scanf("%c",&temp); // temp statement to clear buffer
-	scanf("%[^\n]",name);
-    */
+    int lower = 0;
+
     scanf("%d", &n);
     scanf("%c",&temp); // temp statement to clear buffer
     scanf("%[^\n]", s);
@@ -37,10 +27,12 @@ int main() {
         }
         
         // set up the shift
-        if(s[i] >= 'A' && s[i] <= 'Z')
-                s[i] = s[i] + 32;    
+        if(s[i] >= 'a' && s[i] <= 'z'){
+                s[i] = s[i] - 32;  
+                lower = 1;
+        }
                 
-        if (s[i] >= 'a' && s[i] <= 'z') {
+        if (s[i] >= 'A' && s[i] <= 'Z') {
             if(n < 0) {
                 // 26 = number of letters in alphabet
                 shift = (-1*n) % 26;
@@ -48,10 +40,9 @@ int main() {
                 
                 // making the shift
                 s[i] = shift + s[i];
-                if (s[i] < 'a') {
+                if (s[i] < 'A') {
                     s[i] = s[i] + 26;   
                 }
-                
             }
             else if (n > 0){
                 // 26 = number of letters in alphabet
@@ -59,11 +50,17 @@ int main() {
 
                 // making the shift
                 s[i] = shift + s[i];
-                if (s[i] > 'z') {
+                if (s[i] > 'Z') {
                     s[i] = s[i] - 26;   
                 }
             }
         }
+        
+        if (lower == 1){
+            lower = 0;
+            s[i] = s[i] + 32;
+        }
+        
         //printf
         printf("%c", s[i]);
     }
