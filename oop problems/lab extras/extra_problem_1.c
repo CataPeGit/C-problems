@@ -6,11 +6,6 @@
 #include <ctype.h>
 
 
-// !!! ADD DISTRIBUTION.TXT --- and --- use free() to prevent any memory leaks
-
-// in the distribution.txt file we store the expected percentage of letter frequency 
-
-
 float* read_distribution() {
     // opening the file and reading the distribution of letters
     FILE* file = fopen("input.txt", "r");
@@ -18,7 +13,7 @@ float* read_distribution() {
 
     // the distribution of the letters is stored in an array
     // in which each position represents a letter
-    
+
     for (int i = 0; i < 26; i++) {
         fscanf(file, "%f", &alphabet_array[i]);
     }
@@ -27,68 +22,86 @@ float* read_distribution() {
     return alphabet_array;
 }
 
-
-int* histogram_of_text() {
-    // taking a string as an input and converting letters to lower case if needed
-    char text[256];
-    scanf("%s", text);
-    for (int i = 0; text[i]; i++) {
-        text[i] = tolower(text[i]);
+int* histogram_of_text(char histogram[]) {
+    int* alphabet_array = malloc(26 * sizeof(int));
+    int i;
+    for (i = 0; i < 26; i++) {
+        alphabet_array[i] = 0;
     }
 
-    
-    // each letter a -> z will have 0 frequency to start with
-    // initializing the frequency as 0
-    int* text_array = malloc(26 * sizeof(int));
-    for (int i = 0; i < 26; i++) {
-        text_array[i] = 0;
-    }
+    // we will traverse the dynamic array
+    // and increase the count of the current letter by 1 each time
 
-    // going trough all the letters and storing the frequency in an array
-    int i = 0;
-    while (text[i] != '\0') {
-        if (text[i] >= 'a' && text[i] <= 'z') {
-            int letter_position = text[i] - 'a';
-            text_array[letter_position]++;
+    int nonAlpha = 0;
+    for (i = 0; i < strlen(histogram); i++) {
+
+        // check in we have a letter
+        if (!isalpha(histogram[i])) {
+            nonAlpha++;
+            continue;
         }
-        i++;
+
+        if (histogram[i] >= 'A' && histogram[i] <= 'Z') {
+            int letter_position = histogram[i] - 'A';
+            alphabet_array[letter_position]++;
+        }
+        else if (histogram[i] >= 'a' && histogram[i] <= 'z') {
+            int letter_position = histogram[i] - 'a';
+            alphabet_array[letter_position]++;
+        }
     }
 
-    // now that we have the frequency we can return the array
-    return text_array;
+    return alphabet_array;
 }
 
+int count_letters(char text[]) {
+    // return the number of letters in a string
+    int nonAlpha = 0;
+    int i = 0;
+    for (i = 0; i < strlen(text); i++) {
+        if (!isalpha(text[i])) {
+            nonAlpha++;
+        }
+    }
+    return i - nonAlpha;
+}
 
-void chi_square() {
+float chi_square(char text[]) {
     // algorithm : https://www.youtube.com/watch?v=2QeDRsxSF9M
-    /*
-    This function computes the Chi - square distance between two histograms
-    chi_square^2 = for each histogram we take the difference between the observed(using histogram_of_text function) and expected (the second histogram, maybe use read_distribution as percentage) where these 2 are not percentages
-    we square it (^2)
-    and devide this by the expected
-    ! THIS PROCESS REPEATS FOR EACH LETTER (a->z)
-    we add together all these results (a->z)
-
-    the result will bet approximately a chi-squared distribution
-    
-    */
-    
-}
-
-
-int main() {
+    float result = 0;
 
     float* alphabet_array = read_distribution();
 
-    int* histogram = histogram_of_text();
+    int* histogram = histogram_of_text(text);
+
+    int total_letters_count = count_letters(text);
 
     for (int i = 0; i < 26; i++) {
-        printf("%d", histogram[i]);
-        printf("\n");
+        if (histogram[i] != 0) {
+            float expected = total_letters_count * (alphabet_array[i] / 100);
+            float fraction = pow((expected - histogram[i]), 2) / histogram[i];
+            result = result + fraction;
+            //printf("%c: %.2f%%\n", i + 'a', result);
+            
+        }
     }
+    printf("%f", result);
+    return result;
+}
 
 
-    free(histogram);
-    free(alphabet_array);
+
+int main() {
+    char* text1 = "AOLJHLZHYJPWOLYPZVULVMAOLLHYSPLZARUVDUHUKZPTWS  LZAJPWOLYZPAPZHAFWL  VMZBIZAPABAPVUJPWOLYPUDOPJOLHJOSLAALYPUAOLWSHPUALEAPZZOPMALKHJLYAHPUUBTILYVMWSHJLZKVDUAOLHSWOHILA";
+    chi_square(text1);
+    printf("\n");
+    printf("\n");
+    printf("\n");
+
+    /*
+    for (int i = 0; i < 26; i++) {
+        printf("%c: %.2f%%\n", i + 'a', histogram1[i]);
+    }
+    */
     return 0;
 }
