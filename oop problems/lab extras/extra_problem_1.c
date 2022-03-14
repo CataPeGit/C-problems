@@ -5,11 +5,9 @@
 #include <math.h>
 #include <ctype.h>
 
-
-float* read_distribution() {
+void read_distribution(float* alphabet_array) {
     // opening the file and reading the distribution of letters
-    FILE* file = fopen("input.txt", "r");
-    float* alphabet_array = malloc(26 * sizeof(float));
+    FILE* file = fopen("distribution.txt", "r");
 
     // the distribution of the letters is stored in an array
     // in which each position represents a letter
@@ -19,14 +17,12 @@ float* read_distribution() {
     }
 
     fclose(file);
-    return alphabet_array;
 }
 
-int* histogram_of_text(char histogram[]) {
-    int* alphabet_array = malloc(26 * sizeof(int));
+void histogram_of_text(char histogram[], int alphabet_array_histogram[]) {
     int i;
     for (i = 0; i < 26; i++) {
-        alphabet_array[i] = 0;
+        alphabet_array_histogram[i] = 0;
     }
 
     // we will traverse the dynamic array
@@ -43,15 +39,14 @@ int* histogram_of_text(char histogram[]) {
 
         if (histogram[i] >= 'A' && histogram[i] <= 'Z') {
             int letter_position = histogram[i] - 'A';
-            alphabet_array[letter_position]++;
+            alphabet_array_histogram[letter_position]++;
         }
         else if (histogram[i] >= 'a' && histogram[i] <= 'z') {
             int letter_position = histogram[i] - 'a';
-            alphabet_array[letter_position]++;
+            alphabet_array_histogram[letter_position]++;
         }
     }
 
-    return alphabet_array;
 }
 
 int count_letters(char text[]) {
@@ -66,42 +61,109 @@ int count_letters(char text[]) {
     return i - nonAlpha;
 }
 
-float chi_square(char text[]) {
+
+
+char* permute(char str[], int shift) {
+    // we will move all letters with +shift places
+
+    int i = 0;
+    while (str[i] != '\0') {
+        if (str[i] >= 'A' && str[i] <= 'Z') {
+            char c = str[i] - 'A';
+            c += shift;
+            c = c % 26;
+            str[i] = c + 'A';
+        }
+        else if (str[i] >= 'a' && str[i] <= 'z') {
+            char c = str[i] - 'a';
+            c += shift;
+            c = c % 26;
+            str[i] = c + 'a';
+        }
+        i++;
+    }
+    return str;
+
+}
+
+double chi_square(char text[], float alphabet_array[], int alphabet_array_histogram[]) {
     // algorithm : https://www.youtube.com/watch?v=2QeDRsxSF9M
-    float result = 0;
+    double result = 0;
 
-    float* alphabet_array = read_distribution();
+    read_distribution(alphabet_array);
 
-    int* histogram = histogram_of_text(text);
+    histogram_of_text(text, alphabet_array_histogram);
 
     int total_letters_count = count_letters(text);
 
     for (int i = 0; i < 26; i++) {
-        if (histogram[i] != 0) {
-            float expected = total_letters_count * (alphabet_array[i] / 100);
-            float fraction = pow((expected - histogram[i]), 2) / histogram[i];
+        if (alphabet_array_histogram[i] != 0) {
+            double expected = total_letters_count * (alphabet_array[i] / 100);
+            double fraction = pow((expected - alphabet_array_histogram[i]), 2) / alphabet_array_histogram[i];
             result = result + fraction;
             //printf("%c: %.2f%%\n", i + 'a', result);
-            
         }
     }
-    printf("%f", result);
+    //printf("%f", result);
     return result;
 }
 
+void decrypt(char text[], float alphabet_array[], int alphabet_array_histogram[], char result[]) {
+    // using chi_square on all permutation in order to find out the proper outcome
+    // when permute_counter reaches 26(alphabet size) all the permutations are done
+    double min = 9999999;
 
+    int permute_counter = 0;
+    while (permute_counter < 26) {
+        permute(text, 1);
+        if (min > chi_square(text, alphabet_array, alphabet_array_histogram)) {
+            min = chi_square(text, alphabet_array, alphabet_array_histogram);
+            strcpy(result, text);
+            //printf("%s", text);
+        }
+        permute_counter++;
+    }
+
+    // print the final result and go back to UI
+    printf("%s", result);
+    printf("\n");
+}
+
+void user_interface() {
+    printf("Pick your command: \n");
+    printf("0 -> Stop the program \n");
+    
+    printf("2 -> Decrypt Caesar's cipher example\n");
+    printf("Your command:");
+}
 
 int main() {
-    char* text1 = "AOLJHLZHYJPWOLYPZVULVMAOLLHYSPLZARUVDUHUKZPTWS  LZAJPWOLYZPAPZHAFWL  VMZBIZAPABAPVUJPWOLYPUDOPJOLHJOSLAALYPUAOLWSHPUALEAPZZOPMALKHJLYAHPUUBTILYVMWSHJLZKVDUAOLHSWOHILA";
-    chi_square(text1);
-    printf("\n");
-    printf("\n");
-    printf("\n");
+
+    float* alphabet_array = malloc(26 * sizeof(float));
+    int* alphabet_array_histogram = malloc(26 * sizeof(int));
 
     /*
-    for (int i = 0; i < 26; i++) {
-        printf("%c: %.2f%%\n", i + 'a', histogram1[i]);
-    }
+    Text examples:
+    Uf ime ftq nqef ar fuyqe, uf ime ftq iadef ar fuyqe, uf ime ftq msq ar iuepay, uf ime ftq msq ar raaxuetzqee, uf ime ftq qbaot ar nqxuqr, uf ime ftq qbaot ar uzodqpgxufk, uf ime ftq eqmeaz ar xustf, uf ime ftq eqmeaz ar pmdwzqee, uf ime ftq ebduzs ar tabq, uf ime ftq iuzfqd ar pqebmud.
+    AOLJHLZHYJPWOLYPZVULVMAOLLHYSPLZARUVDUHUKZPTWSLZAJPWOLYZPAPZHAFWLVMZBIZAPABAPVUJPWOLYPUDOPJOLHJOSLAALYPUAOLWSHPUALEAPZZOPMALKHJLYAHPUUBTILYVMWSHJLZKVDUAOLHSWOHILA
     */
+    
+    char text[1000];
+    printf("Break Caesar's cipher! \n");
+    printf("Please enter the text you want to decipher:\n");
+    scanf("%[^\n]s", text);
+
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    printf("Result: \n");
+    char* result = malloc(strlen(text) * sizeof(char));
+    decrypt(text, alphabet_array, alphabet_array_histogram, result);
+
+
+
+    free(alphabet_array);
+    free(alphabet_array_histogram);
     return 0;
 }
+
