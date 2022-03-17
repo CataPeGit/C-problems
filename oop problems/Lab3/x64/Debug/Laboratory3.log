@@ -1,0 +1,4 @@
+﻿  main.cpp
+D:\facultateoop\Laboratory3\complex_number.h(7,2): warning C4091: 'typedef ': ignored on left of 'Complex' when no variable is declared
+D:\facultateoop\Laboratory3\main.cpp(14,10): warning C4101: 'test_stack': unreferenced local variable
+  Laboratory3.vcxproj -> D:\facultateoop\x64\Debug\Laboratory3.exe
