@@ -15,13 +15,30 @@ bool Image::load(std::string imagePath) {
     fstream imageFile;
     imageFile.open(imagePath);
     imageFile.get();
-    int num = 0;
+    //stringstream ss;
+    int max_grey_value = 0;
     if (imageFile.is_open()) {
         string line;
         getline(imageFile, line); // reading magic number (such as P5 or P2)
-        getline(imageFile, line); // rea
-        cout << line << endl;
-        cout << "lapte";
+        
+        cout << "Magic number: " << line << endl;
+        getline(imageFile, line); // reading comment
+        cout << "Comment: " << line << endl;
+        
+        
+
+        imageFile >> this->m_width;
+        imageFile >> this->m_height;
+        imageFile >> max_grey_value; // maximum gray value -> 255 in our case
+        cout << max_grey_value;
+
+        for (int i = 0; i < m_width; i++) {
+            for (int j = 0; j < m_height; j++) {
+                imageFile >> m_data[i][j];
+                cout << m_data[i][j] << " ";
+            }
+            cout << endl;
+        }
 
 
         imageFile.close();
@@ -35,7 +52,7 @@ bool Image::load(std::string imagePath) {
 
 
 Image::Image() {
-    this->m_data = new int*[256]();
+    this->m_data = new unsigned int*[256]();
 	this->m_width = 0;
 	this->m_height = 0;
 }
@@ -44,14 +61,17 @@ Image::Image(unsigned int width, unsigned int height) {
 
 	this->m_width = width;
 	this->m_height = height;
-    this->m_data = new int* [width]();
+    this->m_data = new unsigned int* [width]();
+    for (unsigned int i = 0; i < m_height; i++) {
+        m_data[i] = new unsigned int[m_height]();
+    }
 
 }
 
 Image::Image(const Image& other) {
     this->m_width = other.m_width;
     this->m_height = other.m_height;
-	m_data = new int*[256];
+	m_data = new unsigned int*[256];
 	memcpy(m_data, other.m_data, 256);
 }
 
@@ -70,7 +90,7 @@ Image& Image::operator=(const Image& other) {
 Image::~Image() {
 
 	//delete[] m_data;
-    for (int i = 0; i < m_height; i++) {
+    for (unsigned int i = 0; i < m_height; i++) {
         delete m_data[i];
     }
     delete[] m_data;
