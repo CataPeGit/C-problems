@@ -15,31 +15,28 @@ bool Image::load(std::string imagePath) {
     fstream imageFile;
     imageFile.open(imagePath);
     imageFile.get();
-    //stringstream ss;
+
     int max_grey_value = 0;
     if (imageFile.is_open()) {
         string line;
-        getline(imageFile, line); // reading magic number (such as P5 or P2)
+        getline(imageFile, line); // reading magic number (P2)
         
-        cout << "Magic number: " << line << endl;
+        //cout << "Magic number: " << line << endl;
         getline(imageFile, line); // reading comment
-        cout << "Comment: " << line << endl;
-        
-        
+        //cout << "Comment: " << line << endl;
 
         imageFile >> this->m_width;
         imageFile >> this->m_height;
         imageFile >> max_grey_value; // maximum gray value -> 255 in our case
-        cout << max_grey_value;
+        //cout << max_grey_value;
 
-        for (int i = 0; i < m_width; i++) {
-            for (int j = 0; j < m_height; j++) {
+        for (unsigned int i = 0; i < m_width; i++) {
+            for (unsigned int j = 0; j < m_height; j++) {
                 imageFile >> m_data[i][j];
-                cout << m_data[i][j] << " ";
+                //cout << m_data[i][j] << " ";
             }
-            cout << endl;
+            //cout << endl;
         }
-
 
         imageFile.close();
         return 1;
@@ -49,6 +46,31 @@ bool Image::load(std::string imagePath) {
     return 0;
 }
 
+bool Image::save(std::string imagePath) {
+    fstream outFile;
+    outFile.open(imagePath, ios::out);
+    
+    if (outFile.is_open()) {
+
+        outFile << "P2\n";
+        outFile << m_width << "  ";
+        outFile << m_height << "\n";
+        outFile << "255" << "\n"; // maximum gray value -> 255 in our case
+
+        for (unsigned int i = 0; i < m_width; i++) {
+            for (unsigned int j = 0; j < m_height; j++) {
+                outFile << m_data[i][j] << "  ";
+            }
+            outFile << "\n";
+        }
+        
+
+        outFile.close();
+        return 1;
+    }
+    outFile.close();
+    return 0;
+}
 
 
 Image::Image() {
@@ -75,18 +97,6 @@ Image::Image(const Image& other) {
 	memcpy(m_data, other.m_data, 256);
 }
 
-Image& Image::operator=(const Image& other) {
-
-	if (this != &other) {
-		delete[] m_data;
-
-		this->m_width = m_width;
-		this->m_height = m_height;
-	}
-	return *this;
-
-}
-
 Image::~Image() {
 
 	//delete[] m_data;
@@ -107,6 +117,24 @@ unsigned int Image::height() const {
 Size Image::size() const {
     return Size(this->m_width * this->m_height);
 }
+
+
+std::ostream& operator<<(std::ostream& os, const Image& dt) {
+
+    for (int i = 0; i < dt.m_height; i++) {
+        os << setw(10);
+        for (int j = 0; j < dt.m_width; j++) {
+            os << setw(4);
+            os << dt.m_data[i][j] << "  ";
+        }
+        os << "\n";
+    }
+
+    return os;
+}
+
+
+
 
 
 
