@@ -5,7 +5,7 @@
 #include "Point.h"
 #include "Rectangle.h"
 
-class Image : public Size{
+class Image {
 public:
 	Image();
 	Image(unsigned int width, unsigned int height);
@@ -16,6 +16,8 @@ public:
 
 	unsigned int width() const;
 	unsigned int height() const;
+
+	void set_point(unsigned int value, unsigned int x, unsigned int y);
 
 	bool load(std::string imagePath);
 	bool save(std::string imagePath);
@@ -36,6 +38,7 @@ public:
 
 	bool isEmpty() const;
 
+	unsigned int at_const(unsigned int x, unsigned int y) const;
 	unsigned int& at(unsigned int x, unsigned int y);
 	unsigned int& at(Point pt);
 
@@ -49,6 +52,8 @@ public:
 
 	static Image zeros(unsigned int width, unsigned int height);
 	static Image ones(unsigned int width, unsigned int height);
+
+	
 
 private:
 	unsigned int** m_data;
