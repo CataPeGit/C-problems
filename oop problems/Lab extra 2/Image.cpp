@@ -13,12 +13,11 @@ bool Image::load(std::string imagePath) {
     fstream imageFile;
     imageFile.open(imagePath);
     imageFile.get();
-
+   
     int max_grey_value = 0;
     if (imageFile.is_open()) {
         string line;
         getline(imageFile, line); // reading magic number (P2)
-        
         //cout << "Magic number: " << line << endl;
         getline(imageFile, line); // reading comment
         //cout << "Comment: " << line << endl;
@@ -39,7 +38,9 @@ bool Image::load(std::string imagePath) {
         imageFile.close();
         return 1;
     }
-
+    else {
+        cout << "File did not open. Please make sure the correct path is provided.";
+    }
     imageFile.close();
     return 0;
 }
@@ -118,6 +119,10 @@ unsigned int Image::height() const {
     return this->m_height;
 }
 
+void Image::set_point(unsigned int value, unsigned int y, unsigned int x) {
+    m_data[y][x] = value;
+}
+
 Size Image::size() const {
     return Size(this->m_width * this->m_height);
 }
@@ -143,9 +148,12 @@ unsigned int& Image::at(unsigned int x, unsigned int y) {
     return at;
 }
 
+unsigned int Image::at_const(unsigned int x, unsigned int y) const {
+    return m_data[x][y];
+}
+
 unsigned int& Image::at(Point pt) {
-    unsigned int& at = m_data[pt.get_x()][pt.get_y()];
-    return at;
+    return m_data[pt.get_x()][pt.get_y()];
 }
 
 unsigned int* Image::row(int y) {
@@ -211,19 +219,15 @@ Image Image::getROI( unsigned int x, unsigned int y, unsigned int width, unsigne
 Image Image::zeros(unsigned int width, unsigned int height) {
 
     Image result = Image(width, height);
-    cout << height;
+    //cout << height;
     for (unsigned int i = 0; i < height ; i++) {
         for (unsigned int j = 0; j < width ; j++) {
             result.m_data[i][j] = 0;
-            cout << result.m_data[i][j] << " ";
+            //cout << result.m_data[i][j] << " ";
         }
-        cout << endl;
+        //cout << endl;
     }
-    for (unsigned int i = 0; i < height; i++) {
-        for (unsigned int j = 0; j < width; j++) {
-            cout << result.m_data[i][j] << " ";
-        }
-    }
+
     return result;
 }
 Image Image::ones(unsigned int width, unsigned int height) {
@@ -232,7 +236,7 @@ Image Image::ones(unsigned int width, unsigned int height) {
 
     for (unsigned int i = 0; i < height; i++) {
         for (unsigned int j = 0; j < width; j++) {
-            result.m_data[i][j] = 0;
+            result.m_data[i][j] = 1;
         }
     }
 
@@ -247,6 +251,8 @@ void Image::add_img_to_scalar(unsigned int scalar) {
         }
     }
 }
+
+
 
 void Image::operator=(const Image& other) {
     m_height = other.m_height;
@@ -324,6 +330,7 @@ Image Image::operator*(const Image& i) {
     return result;
 }
 
+
 Image Image::operator+(const unsigned int scalar) {
 
     Image result(m_width, m_height);
@@ -353,6 +360,7 @@ Image Image::operator-(const unsigned int scalar) {
     return result;
 }
 
+
 Image Image::operator*(const unsigned int scalar) {
 
     Image result(m_width, m_height);
@@ -364,6 +372,7 @@ Image Image::operator*(const unsigned int scalar) {
 
     return result;
 }
+
 
 
 /*
