@@ -7,17 +7,19 @@ class BigInteger {
 
 public:
 	BigInteger();
-	BigInteger(string* str);
+	//BigInteger(string* str);
 
 	~BigInteger();
 
 	int compare(const BigInteger N) const;
 
-	int BigInteger::operator==(const BigInteger N) const;
-	int BigInteger::operator<(const BigInteger N) const;
-	int BigInteger::operator>(const BigInteger N) const;
-	int BigInteger::operator<=(const BigInteger N) const;
-	int BigInteger::operator>=(const BigInteger N) const;
+	int operator==(const BigInteger N) const;
+	int operator<(const BigInteger N) const;
+	int operator>(const BigInteger N) const;
+	int operator<=(const BigInteger N) const;
+	int operator>=(const BigInteger N) const;
+
+	char* prepend_zeros(char* arr, int arr_sz, int new_sz);
 
 	//BigInteger add(const BigInteger& N) const;
 	//BigInteger sub(const BigInteger& N) const;
