@@ -34,30 +34,59 @@ BigInteger::BigInteger() {
 
 }
 
-BigInteger::BigInteger(string* str) {
-	if (str[0] == "-") {
+
+BigInteger::BigInteger(string str) {
+	if (str[0] == '-') {
 		sign = -1;
 	}
-	else if (str[0] == 0){
+	else if (str[0] == '0') {
 		sign = 0;
 	}
 	else
 	{
 		sign = 1;
 	}
-	num_digits = length(str);
+	num_digits = str.length();
 	digits = new int[num_digits]();
-	
+
 	for (int i = 0; i < num_digits; i++) {
 		digits[i] = (int)str[i];
 	}
 }
 
+
+
 BigInteger::~BigInteger() {
 	delete[] digits;
 }
 
-int BigInteger::compare(const BigInteger N) const{
+
+
+BigInteger& BigInteger::operator=(const BigInteger N)
+{
+	// release then deep copy
+	delete[] digits;
+
+	num_digits = N.get_num_digits();
+	sign = N.get_sign();
+	digits = new int[num_digits]();
+	for (int i = 0; i < num_digits; i++)
+		digits[i] = N.get_digit(i);
+	return *this;
+}
+
+int BigInteger::get_sign() const {
+	return sign;
+}
+
+int BigInteger::get_num_digits() const {
+	return num_digits;
+}
+int BigInteger::get_digit(int pos) const {
+	return digits[pos];
+}
+
+int BigInteger::compare(const BigInteger N) const {
 	// -1 if number in object is smaller than N, 0 if equal and 1 otherwise
 
 	if (this->sign > N.sign) {
@@ -65,7 +94,7 @@ int BigInteger::compare(const BigInteger N) const{
 	}
 	else if (this->sign < N.sign)
 		return -1;
-	
+
 	if (this->num_digits > N.num_digits) {
 		return 1;
 	}
@@ -73,54 +102,64 @@ int BigInteger::compare(const BigInteger N) const{
 	if (this->num_digits < N.num_digits) {
 		return 0;
 	}
-	
+
 	if (sign == -1) {
 		for (int i = 1; i < num_digits; i++) {
-			if (this->num_digits[i] < N.num_digits[i]) {
+			if (digits[i] < N.digits[i]) {
 				return 1;
 			}
-			else if (this->num_digits[i] > N.num_digits[i]) {
+			else if (digits[i] > N.digits[i]) {
 				return -1;
 			}
 		}
 	}
-	
+
 	for (int i = 0; i < num_digits; i++) {
-		if (this->num_digits[i] > N.num_digits[i]) {
+		if (digits[i] > N.digits[i]) {
 			return 1;
 		}
-		else if (this->num_digits[i] < N.num_digits[i]) {
+		else if (digits[i] < N.digits[i]) {
 			return -1;
 		}
 	}
-	
+
 	return 0;
 }
 
-int BigInteger::operator==(const BigInteger N) const {
-	return compare(N);
+bool BigInteger::operator==(const BigInteger& A, const BigInteger& B) const {
+	if (A.get_sign() != B.get_sign())
+		return false;
+	if (A.get_num_digits() != B.get_num_digits())
+		return false;
+	for (int i = 0; i < A.get_num_digits(); i++)
+		if (A.get_digit(i) != A.get_digit(i))
+			return false;
+	return true;
 }
 
-int BigInteger::operator<(const BigInteger N) const {
-	return compare(N);
+/*
+bool operator<(const BigInteger N) const {
+	return true;
 }
 
-int BigInteger::operator>(const BigInteger N) const {
-	return compare(N);
+bool operator>(const BigInteger N) const {
+	return true;
 }
 
-int BigInteger::operator<=(const BigInteger N) const {
-	return compare(N);
+bool operator<=(const BigInteger N) const {
+	return true;
 }
 
-int BigInteger::operator>=(const BigInteger N) const {
-	return compare(N);
+bool operator>=(const BigInteger N) const {
+	return true;
 }
+*/
+
+
 
 char* BigInteger::prepend_zeros(char* arr, int arr_sz, int new_sz) {
 	int gap_to_prepend = new_sz - arr_sz;
-	arr.~BigInteger();
-	char digits_new = new char[new_sz]();
+	char* digits_new = new char[new_sz]();
 	int digit = 0;
 	for (int i = 0; i < new_sz; i++) {
 		if (i >= gap_to_prepend) {
@@ -128,6 +167,7 @@ char* BigInteger::prepend_zeros(char* arr, int arr_sz, int new_sz) {
 		}
 		arr[i] = 0;
 	}
+	return arr;
 }
 
 
@@ -156,12 +196,5 @@ BigInteger::copy_constructor(const BigInteger& c) {
 	sign = c.sign;
 }
 
-BigInteger::assignment_operator(const BigInteger& c) {
-	// release si apoi deep copy
-	digits = c.digits;
-	*num_digits = *(c.num_digits);
-	sign = c.sign;
-
-}
-
 */
+
