@@ -1,31 +1,8 @@
 #include "BigInteger.h"
-
 #include <cctype> // for isdigit
 #include <iostream>
 #include <iomanip>
-using namespace std;
 
-
-// addition -prepend cu 0 si adunam una cate una
-// apoi facem rez - 10 si facem carry
-// 16 - 10 = 6, carry 1
-
-/*
-void digitize() {
-	int carry = 0;
-	for (i = num_digits - 1; i >= 0; i--) {
-		digits[i] += carry;
-		if (digits[i] > 9) {
-			carry = 1;
-			digits[i] -= 10;
-		}
-		else {
-			carry = 0;
-		}
-	}
-	if(carry) digits[0] = 1;
-}
-*/
 
 BigInteger::BigInteger() {
 	sign = 0;
@@ -34,9 +11,14 @@ BigInteger::BigInteger() {
 
 }
 
-
 BigInteger::BigInteger(string str) {
-	if (str[0] == '-') {
+	// contruct BigInteger
+	bool open_with_plus = false;
+	if (str[0] == '+') {
+		open_with_plus = true;
+		sign = 1;
+	}
+	else if (str[0] == '-') {
 		sign = -1;
 	}
 	else if (str[0] == '0') {
@@ -48,17 +30,18 @@ BigInteger::BigInteger(string str) {
 	}
 
 	int start = 0;
-	if (sign == -1)
+	if (sign == -1 || open_with_plus)
 		start = 1;
 
 	num_digits = str.length();
 	digits = new int[num_digits - start]();
 
 	for (int i = start; i < num_digits; i++) {
-		digits[i-start] = str[i] - '0';
+		digits[i - start] = str[i] - '0';
 	}
-	if (sign == -1)
+	if (sign == -1 || open_with_plus)
 		num_digits -= 1;
+
 }
 
 BigInteger::BigInteger(int* _digits, int _num_digits, int _sign)
@@ -74,24 +57,26 @@ BigInteger::BigInteger(int* _digits, int _num_digits, int _sign)
 
 
 BigInteger::~BigInteger() {
-	delete[] digits;
+	delete digits;
 }
 
 
-BigInteger& BigInteger::operator=(const BigInteger N)
+BigInteger& BigInteger::operator=(const BigInteger& N)
 {
 	// release then deep copy
 	delete[] digits;
+	digits = NULL;
 
 	num_digits = N.get_num_digits();
-	sign = N.get_sign();
+	sign = N.sgn();
 	digits = new int[num_digits]();
-	for (int i = 0; i < num_digits; i++)
+	for (int i = 0; i < num_digits; i++) {
 		digits[i] = N.get_digit(i);
+	}
 	return *this;
 }
 
-int BigInteger::get_sign() const {
+int BigInteger::sgn() const {
 	return sign;
 }
 
@@ -167,8 +152,11 @@ int* prepend_zeros(int* arr, int arr_sz, int new_sz) {
 	return digits_new;
 }
 
+void BigInteger::negate() {
+	sign *= -1;
+}
 
-int* negate(int* arr, int arr_sz) {
+int* negate_array(int* arr, int arr_sz) {
 	// multiply with -1 each element in arr
 	for (int i = 0; i < arr_sz; i++) {
 		arr[i] *= -1;
@@ -176,13 +164,13 @@ int* negate(int* arr, int arr_sz) {
 	return arr;
 }
 
-int* add_arrays(int* arr1, int* arr2, int arr_sz) {
+int* add_arrays(int* arr1, int* arr2, int arr_sz, int* result_array) {
 	// adds two arrays of digits
 	for (int i = 0; i < arr_sz; i++) {
-		arr1[i] += arr2[i];
-		cout << arr1[i] << "we got this";
+		result_array[i] = arr1[i] + arr2[i];
+		//cout << arr1[i] << " here ";
 	}
-	return arr1;
+	return result_array;
 }
 
 int* sub_arrays(int* arr1, int* arr2, int arr_sz) {
@@ -199,6 +187,12 @@ int* digitize(int* arr, int arr_sz)
 	// normalizes arr such that every element is a digit
 	int carry = 0;
 	int borrow = 0;
+
+	if (arr[0] == -1) {
+		arr[0] = 0;
+		return arr;
+	}
+
 	for (int i = arr_sz - 1; i >= 0; i--) {
 		arr[i] += carry;
 		arr[i] -= borrow;
@@ -217,6 +211,7 @@ int* digitize(int* arr, int arr_sz)
 			borrow = 0;
 		}
 	}
+
 	return arr;
 }
 
@@ -238,43 +233,105 @@ BigInteger BigInteger::add(const BigInteger& N) const {
 	int* array2 = prepend_zeros(N.get_digits_array(), N.get_num_digits(), max_size);
 
 	// negating arrays if needed
-	if (sign == -1 && N.get_sign() == 1) {
-		array1 = negate(array1, max_size);
+	if (sign == -1 && N.sgn() == 1) {
+		array1 = negate_array(array1, max_size);
 	}
-	if (N.get_sign() == -1 && sign == 1) {
-		array2 = negate(array2, max_size);
+	if (N.sgn() == -1 && sign == 1) {
+		array2 = negate_array(array2, max_size);
 	}
 
 	// calculate resulted array
-	int* result_array = add_arrays(array1, array2, max_size);
+	int* result_array = new int[num_digits]();
+	add_arrays(array1, array2, max_size, result_array);
 
 	result_array = digitize(result_array, max_size);
 
 	// getting the new sign
 	int result_sign = 0;
-	if (sign == -1 && N.get_sign() == -1) {
+	if (result_array[0] == 0) {}
+	else if (sign == -1 && N.sgn() == -1) {
 		result_sign = -1;
 	}
-	else if (sign == 1 || N.get_sign() == 1) {
+	else if (sign == 1 || N.sgn() == 1) {
 		result_sign = 1;
 	}
-	
+
+	// negating arrays back if needed
+	if (sign == -1 && N.sgn() == 1) {
+		array1 = negate_array(array1, max_size);
+	}
+	if (N.sgn() == -1 && sign == 1) {
+		array2 = negate_array(array2, max_size);
+	}
+
 	//delete[] array1;
 	//delete[] array2;
 	//delete[] result_array;
 	return BigInteger(result_array, max_size, result_sign);
 }
 
-
 BigInteger operator+(const BigInteger& A, const BigInteger& B)
 {
 	return A.add(B);
 }
 
+void operator+=(BigInteger& A, const BigInteger& B)
+{
+	A.add(B);
+}
+
+BigInteger BigInteger::sub(const BigInteger& N) const {
+	// subtracts two BigInteger objects
+
+	// getting the biggest array size
+	int max_size = 0;
+	if (num_digits >= N.get_num_digits())
+	{
+		max_size = num_digits;
+	}
+	else if (num_digits < N.get_num_digits()) {
+		max_size = N.get_num_digits();
+	}
+
+	// creating arrays we will subtracts
+	int* array1 = prepend_zeros(digits, num_digits, max_size);
+	int* array2 = prepend_zeros(N.get_digits_array(), N.get_num_digits(), max_size);
+
+	// negating arrays if needed
+
+	// calculate resulted array
+	int* result_array = sub_arrays(array1, array2, max_size);
+
+	result_array = digitize(result_array, max_size);
+
+	// getting the new sign
+	int result_sign = 0;
+	if (sign == -1 && N.sgn() == -1) {
+		result_sign = -1;
+	}
+	else if (sign == 1 || N.sgn() == 1) {
+		result_sign = 1;
+	}
+
+	//delete[] array1;
+	//delete[] array2;
+	//delete[] result_array;
+	return BigInteger(result_array, max_size, result_sign);
+}
+
+BigInteger operator-(const BigInteger& A, const BigInteger& B)
+{
+	return A.sub(B);
+}
+
+void operator-=(BigInteger& A, const BigInteger& B)
+{
+	A.sub(B);
+}
 
 bool operator==(const BigInteger& A, const BigInteger& B)
 {
-	if (A.get_sign() != B.get_sign())
+	if (A.sgn() != B.sgn())
 		return false;
 	if (A.get_num_digits() != B.get_num_digits())
 		return false;
@@ -286,7 +343,7 @@ bool operator==(const BigInteger& A, const BigInteger& B)
 
 bool operator<(const BigInteger& A, const BigInteger& B)
 {
-	if (A.get_sign() > B.get_sign()) {
+	if (A.sgn() > B.sgn()) {
 		return false;
 	}
 	else if (A.get_num_digits() > B.get_num_digits()) {
@@ -307,7 +364,7 @@ bool operator<(const BigInteger& A, const BigInteger& B)
 
 bool operator>(const BigInteger& A, const BigInteger& B)
 {
-	if (A.get_sign() < B.get_sign()) {
+	if (A.sgn() < B.sgn()) {
 		return false;
 	}
 	else if (A.get_num_digits() < B.get_num_digits()) {
@@ -340,20 +397,69 @@ bool operator>=(const BigInteger& A, const BigInteger& B)
 	return false;
 }
 
+std::string BigInteger::to_string_integer()
+{
+	std::string result = "";
 
-/*
-BigInteger add(const BigInteger& N) const {
-	int new_sign = 0;
-	if ((sign == -1 || N.get_sign() == -1) && (sign != N.get_sign())) {
-		new_sign = -1;
+	if (sign == 0) {
+		result += "0";
+		return result;
 	}
-	else if (sign != 0 || N.get_sign() != 0) {
-		new_sign = 1;
+	else if (sign == -1) {
+		result += "-";
+		for (int i = 1; i <= num_digits; i++) {
+			result += std::to_string(digits[i - 1]);
+		}
+	}
+	else if (sign == 1) {
+		result += "+";
+		for (int i = 1; i <= num_digits; i++) {
+			result += std::to_string(digits[i - 1]);
+		}
 	}
 
+	return result;
 }
 
-*/
+std::ostream& operator<<(std::ostream& stream, BigInteger& N)
+{
+	stream << N.to_string_integer();
+	return stream;
+}
 
-//BigInteger sub(const BigInteger& N) const;
+BigInteger& BigInteger::operator++()
+{
+	// this is the pre-increment operator
+	if (sign == 0) {
+		sign = 1;
+		digits[0]++;
+	}
+	else if (sign == -1 && -1 == digits[0]) {
+		sign = 0;
+		digits[0] = 0;
+	}
+	else {
+		digits[num_digits - 1]++;
+		digitize(digits, num_digits);
+	}
+	return *this;
+}
 
+BigInteger BigInteger::operator++(int) {
+	// this is the post-increment operator
+	std::string before = this->to_string_integer();
+
+	if (sign == 0) {
+		sign = 1;
+		digits[0]++;
+	}
+	else if (sign == -1 && -1 == digits[0]) {
+		sign = 0;
+		digits[0] = 0;
+	}
+	else {
+		digits[num_digits - 1]++;
+		digitize(digits, num_digits);
+	}
+	return BigInteger(before);
+}
