@@ -13,14 +13,20 @@ void Tests::test_user()
 
     themap["water"] = 520;
 
-    User testedUser(0, "Test Name", 1000, themap);
-
+    User testedUser(0, "Test Name", 1000);
+    assert(testedUser.check_if_purchase_exists("") == true);
+    testedUser.set_all_new_purchase_prices(themap);
     assert(testedUser.get_id() == 0);
     assert(testedUser.get_name() == "Test Name");
     assert(testedUser.get_account_balance() == 1000);
-
     std::map<std::string, unsigned int> check_map = testedUser.get_purchased_price();
     assert(themap.size() == check_map.size() && std::equal(themap.begin(), themap.end(), check_map.begin()));
+
+    User copyTestUser(testedUser);
+    assert(copyTestUser.get_id() == 0);
+    assert(copyTestUser.get_name() == "Test Name");
+    assert(copyTestUser.get_account_balance() == 1000);
+    assert(copyTestUser.check_if_purchase_exists("water") == true);
 
     testedUser.add_purchase("water", 30);
     assert(testedUser.get_specific_purchase_price("water") == 550);
