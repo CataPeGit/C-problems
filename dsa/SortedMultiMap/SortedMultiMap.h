@@ -17,7 +17,20 @@ typedef bool(*Relation)(TKey, TKey);
 class SortedMultiMap {
 	friend class SMMIterator;
     private:
-		//TODO - Representation
+        //TODO - Representation
+        
+        
+        // there will be a sortedMultiMapArray array containing TElem type elements
+        // which represent the relation between a Tkey and TValue
+        
+        // Relation is the storing relation of the TElem type elements
+        Relation array_relation;
+
+        // an array storing all the relations between Tkey and TValue
+        TElem** sortedMultiMapArray;
+
+        // number of all element pointers in sortedMultiMapArray 
+        unsigned int arraySize;
 
     public:
 
