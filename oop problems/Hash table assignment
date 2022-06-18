@@ -1,0 +1,132 @@
+#include <iostream>
+#include <sstream>
+
+using std::string;
+using std::stringstream;
+
+
+class HashTable {
+
+public:
+
+    struct Entry {
+        string Data;
+        string Status = "never used";
+    };
+
+    static const int Size = 26;
+
+public:
+    HashTable() = default;
+
+    void Add(const string& entryString) {
+        // adding a string to the hash table
+        // if it does not exist
+
+        bool exist = Find(entryString);
+        if (!exist) {
+            int insertIndex = GetInsertIndex(entryString);
+            m_Entries[insertIndex].Data = entryString;
+            m_Entries[insertIndex].Status = "occupied";
+        }
+    }
+
+    void Delete(const string& entryString) {
+        // deleting an existing string from the hash table
+
+        int index;
+        bool exists = Find(entryString, &index);
+        if (exists)
+            m_Entries[index].Status = "tombstone";
+    }
+
+    void Print() const {
+        bool first = true;
+        for (int i = 0; i < Size; i++) {
+            if (m_Entries[i].Status == "occupied") {
+                if (!first) {
+                    std::cout << " ";
+                }
+                std::cout << m_Entries[i].Data;
+                first = false;
+            }
+        }
+    }
+
+private:
+
+    int GetIndex(const string& entryString) const {
+        // getting the last character of the string
+        return entryString.back() - 'a';
+    }
+
+    bool Find(const string& entryString, int* outIndex = nullptr) const {
+        // finding if a string is in the hash table
+        int index = GetIndex(entryString);
+
+        while (true) {
+            if (m_Entries[index].Data == entryString) {
+                if (outIndex)
+                    *outIndex = index;
+                return true;
+            }
+
+            if (m_Entries[index].Status == "never used") {
+                return false;
+            }
+
+            index = (index + 1) % Size;
+        }
+
+        return false;
+    }
+
+    int GetInsertIndex(const string& entryString) const {
+        // finding if a string is in the hash table
+        int index = GetIndex(entryString);
+        while (true) {
+
+            if (m_Entries[index].Status == "never used" || m_Entries[index].Status == "tombstone") {
+                return index;
+            }
+
+            index = (index + 1) % Size;
+        }
+
+        return -1;
+    }
+
+private:
+    Entry m_Entries[Size];
+
+};
+
+
+int main()
+{
+    // Aapple Aorange Dapple Astrawberry
+    string input;
+    getline(std::cin, input);
+    stringstream ss(input);
+
+    HashTable hashtable;
+
+    while (ss.good()) {
+        // taking every word as a token
+        string token;
+        ss >> token;
+
+        // checking the first character of the token
+        // and working with the substring
+        string entryName = token.substr(1);
+        if (token[0] == 'A') {
+            hashtable.Add(entryName);
+        }
+        else if (token[0] == 'D') {
+            hashtable.Delete(entryName);
+        }
+    }
+
+    hashtable.Print();
+    return 0;
+}
